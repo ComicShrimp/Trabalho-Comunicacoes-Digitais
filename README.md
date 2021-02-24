@@ -11,6 +11,9 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
   - Arch: `sudo pacman -S tk`
   - Ubuntu: `sudo apt-get install python3-tk`
 
+ ## Padronização dos commits
+ ### conventional-commit
+ `pip install conventional-commit` 
 # Executar arquivo
 
 ## 1. Crie um shell com pipenv
@@ -20,3 +23,19 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 ## 2. Instale as bibliotecas
 
 - `pipenv install`
+
+
+## Observações
+    - Frequencia digital == taxa de simbolo
+    - Observar os Códigos de linhas
+## Melhorias 
+    - Acrescentar multiplos gráficos a interface (3 Gráficos)
+      - Sinal Analogico
+      - Sequência de bits aleatória
+      - Sinal de digital correspondente a sequência de bits
+    - Controlar a taxa de símbolos (Somente)
+    - ter a opção de escolher o pulso conformador (ComboBox)
+      - Mapeamento (bits -> nº real) 1 -> 1 / 0 -> -1
+      - Pulso retangular de meio periodo
+      - Pulso retangular de periodo completo
+      - Pulso trinagular
