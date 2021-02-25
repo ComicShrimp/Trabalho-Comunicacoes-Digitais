@@ -10,10 +10,6 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 - python3-tk
   - Arch: `sudo pacman -S tk`
   - Ubuntu: `sudo apt-get install python3-tk`
-
- ## Padronização dos commits
- ### conventional-commit
- `pip install conventional-commit` 
 # Executar arquivo
 
 ## 1. Crie um shell com pipenv
