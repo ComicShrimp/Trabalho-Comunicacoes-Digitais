@@ -6,7 +6,7 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 - Python 3.^
 - Pip
 - Pipenv
-  - `sudo pip install pipenv` ou `sudo pip3 install pipenv`
+  - Linux: `sudo pip install pipenv` ou `sudo pip3 install pipenv`
 - python3-tk
   - Arch: `sudo pacman -S tk`
   - Ubuntu: `sudo apt-get install python3-tk`
@@ -21,17 +21,24 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 - `pipenv install`
 
 
-## Observações
-    - Frequencia digital == taxa de simbolo
-    - Observar os Códigos de linhas
+## Observações:
+- Frequencia digital == taxa de simbolo
+- Observar os Códigos de linhas
 ## Melhorias 
-    - Acrescentar multiplos gráficos a interface (3 Gráficos)
-      - Sinal Analogico
-      - Sequência de bits aleatória
-      - Sinal de digital correspondente a sequência de bits
-    - Controlar a taxa de símbolos (Somente)
-    - ter a opção de escolher o pulso conformador (ComboBox)
-      - Mapeamento (bits -> nº real) 1 -> 1 / 0 -> -1
-      - Pulso retangular de meio periodo
-      - Pulso retangular de periodo completo
-      - Pulso trinagular
+- [ ] Acrescentar multiplos gráficos a interface (3 Gráficos)
+  - [ ] Sinal Analogico
+  - [ ] Sequência de bits aleatória
+  - [ ] Sinal de digital correspondente a sequência de bits
+- [ ] Controlar a taxa de símbolos (Somente)
+- [ ] Ter a opção de escolher o pulso conformador (ComboBox)
+  - [ ] Mapeamento (bits -> nº real) 1 -> 1 / 0 -> -1
+  - [ ] Pulso retangular de meio periodo
+  - [ ] Pulso retangular de periodo completo
+  - [ ] Pulso trinagular
+
+## Bibliotecas utilizadas
+
+- scipy
+- matplotlib
+- autopep8
+- numpy
