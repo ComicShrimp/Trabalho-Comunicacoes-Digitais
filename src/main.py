@@ -37,22 +37,22 @@ graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
 
 # X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
-graficos[0].set_ylabel("Sinal Analogico")
+graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
 graficos[0].set_ylim(-2, 2)
 
 # X/Y Sequencia de bits aleatorias
 graficos[1].set_xlabel("Tempo")
-graficos[1].set_ylabel("Sequencia de Bits")
+graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
 graficos[1].set_ylim(-2, 2)
 
 # X/Y Sinal digital referente a sequencia de bits
 graficos[2].set_xlabel("Tempo")
-graficos[2].set_ylabel("Sinal Digital")
+graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
 graficos[2].set_ylim(-2, 2)
 
 # X/Y Pulso conformador
 graficos[3].set_xlabel("Tempo")
-graficos[3].set_ylabel("Pulso Conformador")
+graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
 graficos[3].set_ylim(-2, 2)
 
 canvas = FigureCanvasTkAgg(f, janela_principal)
@@ -109,25 +109,25 @@ def gerarGrafico(i, eixo_x, eixo_y):
         graficos[0].clear()
         graficos[0].set_ylim(-2, 2)
         graficos[0].set_xlabel("Tempo")
-        graficos[0].set_ylabel("Amplitude")
+        graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
 
         # Sinal Sequência de Bits
         graficos[1].clear()
         graficos[1].set_ylim(-2, 2)
         graficos[1].set_xlabel("Tempo")
-        graficos[1].set_ylabel("Amplitude")
+        graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
 
         # Sinal Digital referente a Sequência de Bits
         graficos[2].clear()
         graficos[2].set_ylim(-2, 2)
         graficos[2].set_xlabel("Tempo")
-        graficos[2].set_ylabel("Amplitude")
+        graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
 
         # Sinal Pulso Conformador
         graficos[3].clear()
         graficos[3].set_ylim(-2, 2)
-        graficos[3].set_xlabel("Tempo")
-        graficos[3].set_ylabel("Amplitude")
+        graficos[3].set_xlabel("Tempo", fontweight='bold')
+        graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
 
         # Sinal Analógico
         sinal_analogico = np.sin(intervalo)
