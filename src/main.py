@@ -27,7 +27,7 @@ root.geometry("980x700")
 f = Figure(figsize=(10, 7), dpi=80)
 graficos = f.subplots(2)
 x = [0]
-y= [0]
+y = [0]
 graficos[0].plot(x, y)
 graficos[1].plot(x, y)
 # Setando pro Sinal 0
@@ -41,7 +41,6 @@ graficos[1].set_ylim(-2, 5)
 
 canvas = FigureCanvasTkAgg(f, root)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
-
 
 
 def funcIniciar():
@@ -90,28 +89,56 @@ def gerarGrafico(i, x, y):
             minimo_tamanho_intervalo, maximo_tamanho_intervalo, 256
         ) * random.uniform(0.9, 1)
 
+        # Sinal Analógico
         graficos[0].clear()
         graficos[0].set_ylim(-2, 2)
         graficos[0].set_xlabel("Tempo")
         graficos[0].set_ylabel("Amplitude")
 
-        # analógico
-        if analogico:
-            freqAngularAnalogica = 2 * np.pi * frequencia_analogica
-            sinalseno = np.sin(intervalo * freqAngularAnalogica) * random.uniform(
-                0.9, 1
-            )
-            graficos[0].plot(intervalo, sinalseno, "c")
+        # Sinal Sequência de Bits
+        graficos[1].clear()
+        graficos[1].set_ylim(-2, 2)
+        graficos[1].set_xlabel("Tempo")
+        graficos[1].set_ylabel("Amplitude")
 
-        # digital
-        if digital:
-            freqAngularDigital = 2 * np.pi * frequencia_digital
-            sinalQuadrado = signal.square(intervalo * freqAngularDigital)
-            graficos[0].plot(
-                intervalo,
-                sinalQuadrado,
-                "r",
-            )
+        # Sinal Digital referente a Sequência de Bits
+        graficos[2].clear()
+        graficos[2].set_ylim(-2, 2)
+        graficos[2].set_xlabel("Tempo")
+        graficos[2].set_ylabel("Amplitude")
+
+        # Sinal Pulso Conformador
+        graficos[3].clear()
+        graficos[3].set_ylim(-2, 2)
+        graficos[3].set_xlabel("Tempo")
+        graficos[3].set_ylabel("Amplitude")
+
+        # Sinal Analógico
+        sinal_analogico = np.sin(intervalo)
+        graficos[0].plot(intervalo, sinal_analogico, "c")
+
+        # Sinal Sequência de Bits
+        sinal_senquencia_bits = signal.square(intervalo)
+        graficos[1].plot(
+            intervalo,
+            sinal_senquencia_bits,
+            "r",
+        )
+
+        # Sinal Digital referente a Sequência de Bits
+        sinal_digital = signal.square(intervalo)
+        graficos[2].plot(
+            intervalo,
+            sinal_digital,
+            "r",
+        )
+        # Sinal Pulso Conformador
+        sinal_digital = signal.square(intervalo)
+        graficos[3].plot(
+            intervalo,
+            sinal_digital,
+            "r",
+        )
 
         maximo_tamanho_intervalo += 1
         minimo_tamanho_intervalo += 1
