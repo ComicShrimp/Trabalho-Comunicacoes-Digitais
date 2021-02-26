@@ -22,19 +22,26 @@ digital = True
 root.title("Gerador de Sinais")
 root.resizable(True, True)
 root.config(bg="white")
-root.geometry("860x600")
+root.geometry("980x700")
 
-f = Figure(figsize=(10, 6), dpi=85)
-a = f.add_subplot(111)
-
+f = Figure(figsize=(10, 7), dpi=80)
+graficos = f.subplots(2)
 x = [0]
-y = [0]
-a.plot(x, y, x, y)
-a.set_xlabel("Tempo")
-a.set_ylabel("Amplitude")
-a.set_ylim(-2, 5)
+y= [0]
+graficos[0].plot(x, y)
+graficos[1].plot(x, y)
+# Setando pro Sinal 0
+graficos[0].set_xlabel("Tempo")
+graficos[0].set_ylabel("Amplitude")
+graficos[0].set_ylim(-2, 5)
+# Setando pro Sinal 1
+graficos[1].set_xlabel("Tempo")
+graficos[1].set_ylabel("Amplitude")
+graficos[1].set_ylim(-2, 5)
+
 canvas = FigureCanvasTkAgg(f, root)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
+
 
 
 def funcIniciar():
@@ -83,10 +90,10 @@ def gerarGrafico(i, x, y):
             minimo_tamanho_intervalo, maximo_tamanho_intervalo, 256
         ) * random.uniform(0.9, 1)
 
-        a.clear()
-        a.set_ylim(-2, 2)
-        a.set_xlabel("Tempo")
-        a.set_ylabel("Amplitude")
+        graficos[0].clear()
+        graficos[0].set_ylim(-2, 2)
+        graficos[0].set_xlabel("Tempo")
+        graficos[0].set_ylabel("Amplitude")
 
         # analógico
         if analogico:
@@ -94,13 +101,13 @@ def gerarGrafico(i, x, y):
             sinalseno = np.sin(intervalo * freqAngularAnalogica) * random.uniform(
                 0.9, 1
             )
-            a.plot(intervalo, sinalseno, "c")
+            graficos[0].plot(intervalo, sinalseno, "c")
 
         # digital
         if digital:
             freqAngularDigital = 2 * np.pi * frequencia_digital
             sinalQuadrado = signal.square(intervalo * freqAngularDigital)
-            a.plot(
+            graficos[0].plot(
                 intervalo,
                 sinalQuadrado,
                 "r",
