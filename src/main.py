@@ -10,7 +10,7 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
-root = Tk()
+janela_principal = Tk()
 iniciar = False
 frequencia_digital = 2
 frequencia_analogica = 1
@@ -19,10 +19,10 @@ maximo_tamanho_intervalo = 15
 analogico = True
 digital = True
 
-root.title("Gerador de Sinais")
-root.resizable(True, True)
-root.config(bg="white")
-root.geometry("980x700")
+janela_principal.title("Gerador de Sinais")
+janela_principal.resizable(True, True)
+janela_principal.config(bg="white")
+janela_principal.geometry("980x700")
 
 f = Figure(figsize=(10, 7), dpi=80)
 graficos = f.subplots(4)
@@ -55,7 +55,7 @@ graficos[3].set_xlabel("Tempo")
 graficos[3].set_ylabel("Amplitude")
 graficos[3].set_ylim(-2, 5)
 
-canvas = FigureCanvasTkAgg(f, root)
+canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
@@ -189,16 +189,16 @@ ani = animation.FuncAnimation(
     interval=500,
 )
 
-iniciarBTN = Button(root, width=9, text="Iniciar", command=funcIniciar)
+iniciarBTN = Button(janela_principal, width=9, text="Iniciar", command=funcIniciar)
 iniciarBTN.place(relx=0.9, rely=0.9, anchor=N)
 
 analogicoBTN = Button(
-    root, width=12, text="Ocutar analógico", bg="#00CED1", command=analogico
+    janela_principal, width=12, text="Ocutar analógico", bg="#00CED1", command=analogico
 )
 analogicoBTN.place(relx=0.75, rely=0.9, anchor=N)
 
 digitalBTN = Button(
-    root, width=12, text="Ocutar digital", bg="#C4302B", command=digital
+    janela_principal, width=12, text="Ocutar digital", bg="#C4302B", command=digital
 )
 digitalBTN.place(relx=0.6, rely=0.9, anchor=N)
 
@@ -206,13 +206,13 @@ digitalBTN.place(relx=0.6, rely=0.9, anchor=N)
 ############  Analógico   ############
 ######################################
 frequenciaAnalogicoFrame = LabelFrame(
-    root,
+    janela_principal,
     text="Frequência Analógico",
     width=145,
     height=75,
     borderwidth=0,
 )
-frequenciaAnalogicoFrame.place(in_=root, relx=0.15, rely=0.9, anchor=CENTER)
+frequenciaAnalogicoFrame.place(in_=janela_principal, relx=0.15, rely=0.9, anchor=CENTER)
 frequenciaAnalogicoInfoLabel = Label(
     frequenciaAnalogicoFrame,
     text=str(frequencia_analogica),
@@ -226,13 +226,13 @@ inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
 ############    Digital   ############
 ######################################
 frequenciaDigitalFrame = LabelFrame(
-    root,
+    janela_principal,
     text="Frequência Digital",
     width=120,
     height=75,
     borderwidth=0,
 )
-frequenciaDigitalFrame.place(in_=root, relx=0.4, rely=0.9, anchor=CENTER)
+frequenciaDigitalFrame.place(in_=janela_principal, relx=0.4, rely=0.9, anchor=CENTER)
 frequenciaDigitalInfoLabel = Label(
     frequenciaDigitalFrame,
     text=str(frequencia_digital),
