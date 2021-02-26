@@ -12,8 +12,6 @@ from matplotlib.figure import Figure
 
 janela_principal = Tk()
 iniciar = False
-frequencia_digital = 2
-frequencia_analogica = 1
 minimo_tamanho_intervalo = 0
 maximo_tamanho_intervalo = 15
 analogico = True
@@ -96,7 +94,6 @@ def seno(intervalo):
 def gerarGrafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
-    global frequencia_analogica, frequencia_digital
 
     if iniciar:
         intervalo = np.linspace(
