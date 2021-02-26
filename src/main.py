@@ -35,23 +35,23 @@ graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
 
 # X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
-graficos[0].set_ylabel("Amplitude")
-graficos[0].set_ylim(-2, 5)
+graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
+graficos[0].set_ylim(-2, 2)
 
 # X/Y Sequencia de bits aleatorias
 graficos[1].set_xlabel("Tempo")
-graficos[1].set_ylabel("Amplitude")
-graficos[1].set_ylim(-2, 5)
+graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
+graficos[1].set_ylim(-2, 2)
 
 # X/Y Sinal digital referente a sequencia de bits
 graficos[2].set_xlabel("Tempo")
-graficos[2].set_ylabel("Amplitude")
-graficos[2].set_ylim(-2, 5)
+graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
+graficos[2].set_ylim(-2, 2)
 
 # X/Y Pulso conformador
 graficos[3].set_xlabel("Tempo")
-graficos[3].set_ylabel("Amplitude")
-graficos[3].set_ylim(-2, 5)
+graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
+graficos[3].set_ylim(-2, 2)
 
 canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
@@ -106,25 +106,25 @@ def gerarGrafico(i, eixo_x, eixo_y):
         graficos[0].clear()
         graficos[0].set_ylim(-2, 2)
         graficos[0].set_xlabel("Tempo")
-        graficos[0].set_ylabel("Amplitude")
+        graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
 
         # Sinal Sequência de Bits
         graficos[1].clear()
         graficos[1].set_ylim(-2, 2)
         graficos[1].set_xlabel("Tempo")
-        graficos[1].set_ylabel("Amplitude")
+        graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
 
         # Sinal Digital referente a Sequência de Bits
         graficos[2].clear()
         graficos[2].set_ylim(-2, 2)
         graficos[2].set_xlabel("Tempo")
-        graficos[2].set_ylabel("Amplitude")
+        graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
 
         # Sinal Pulso Conformador
         graficos[3].clear()
         graficos[3].set_ylim(-2, 2)
-        graficos[3].set_xlabel("Tempo")
-        graficos[3].set_ylabel("Amplitude")
+        graficos[3].set_xlabel("Tempo", fontweight='bold')
+        graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
 
         # Sinal Analógico
         sinal_analogico = np.sin(intervalo)
@@ -186,18 +186,19 @@ ani = animation.FuncAnimation(
     interval=500,
 )
 
-iniciarBTN = Button(janela_principal, width=9, text="Iniciar", command=funcIniciar)
-iniciarBTN.place(relx=0.9, rely=0.9, anchor=N)
+
+iniciarBTN = Button(janela_principal, width=24, height=3, bg="#d3d3d3", text="Iniciar", command=funcIniciar)
+iniciarBTN.place(relx=0.87, rely=0.45, anchor=N)
 
 analogicoBTN = Button(
     janela_principal, width=12, text="Ocutar analógico", bg="#00CED1", command=analogico
 )
-analogicoBTN.place(relx=0.75, rely=0.9, anchor=N)
+analogicoBTN.place(relx=0.92, rely=0.4, anchor=N)
 
 digitalBTN = Button(
     janela_principal, width=12, text="Ocutar digital", bg="#C4302B", command=digital
 )
-digitalBTN.place(relx=0.6, rely=0.9, anchor=N)
+digitalBTN.place(relx=0.82, rely=0.4, anchor=N)
 
 ######################################
 ############  Analógico   ############
@@ -209,7 +210,7 @@ frequenciaAnalogicoFrame = LabelFrame(
     height=75,
     borderwidth=0,
 )
-frequenciaAnalogicoFrame.place(in_=janela_principal, relx=0.15, rely=0.9, anchor=CENTER)
+frequenciaAnalogicoFrame.place(in_=janela_principal, relx=0.87, rely=0.2, anchor=CENTER)
 frequenciaAnalogicoInfoLabel = Label(
     frequenciaAnalogicoFrame,
     text=str(frequencia_analogica),
@@ -225,11 +226,11 @@ inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
 frequenciaDigitalFrame = LabelFrame(
     janela_principal,
     text="Frequência Digital",
-    width=120,
+    width=145,
     height=75,
     borderwidth=0,
 )
-frequenciaDigitalFrame.place(in_=janela_principal, relx=0.4, rely=0.9, anchor=CENTER)
+frequenciaDigitalFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
 frequenciaDigitalInfoLabel = Label(
     frequenciaDigitalFrame,
     text=str(frequencia_digital),
