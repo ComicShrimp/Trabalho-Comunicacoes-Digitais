@@ -9,6 +9,7 @@ matplotlib = "*"
 autopep8 = "*"
 numpy = "*"
 conventional-commit = "*"
+black = "*"
 
 [dev-packages]
 

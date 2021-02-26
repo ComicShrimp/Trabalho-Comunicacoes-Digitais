@@ -26,9 +26,10 @@ root.geometry("860x600")
 
 f = Figure(figsize=(10, 6), dpi=85)
 a = f.add_subplot(111)
+
 x = [0]
 y = [0]
-a.plot(x, y)
+a.plot(x, y, x, y)
 a.set_xlabel("Tempo")
 a.set_ylabel("Amplitude")
 a.set_ylim(-2, 5)
