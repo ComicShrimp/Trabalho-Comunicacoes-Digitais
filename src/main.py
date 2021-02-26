@@ -189,18 +189,18 @@ ani = animation.FuncAnimation(
     interval=500,
 )
 
-iniciarBTN = Button(root, width=9, text="Iniciar", command=funcIniciar)
-iniciarBTN.place(relx=0.9, rely=0.9, anchor=N)
+iniciarBTN = Button(root, width=24, height=3, bg="#d3d3d3", text="Iniciar", command=funcIniciar)
+iniciarBTN.place(relx=0.87, rely=0.45, anchor=N)
 
 analogicoBTN = Button(
     root, width=12, text="Ocutar analógico", bg="#00CED1", command=analogico
 )
-analogicoBTN.place(relx=0.75, rely=0.9, anchor=N)
+analogicoBTN.place(relx=0.92, rely=0.4, anchor=N)
 
 digitalBTN = Button(
     root, width=12, text="Ocutar digital", bg="#C4302B", command=digital
 )
-digitalBTN.place(relx=0.6, rely=0.9, anchor=N)
+digitalBTN.place(relx=0.82, rely=0.4, anchor=N)
 
 ######################################
 ############  Analógico   ############
@@ -212,7 +212,7 @@ frequenciaAnalogicoFrame = LabelFrame(
     height=75,
     borderwidth=0,
 )
-frequenciaAnalogicoFrame.place(in_=root, relx=0.15, rely=0.9, anchor=CENTER)
+frequenciaAnalogicoFrame.place(in_=root, relx=0.87, rely=0.2, anchor=CENTER)
 frequenciaAnalogicoInfoLabel = Label(
     frequenciaAnalogicoFrame,
     text=str(frequencia_analogica),
@@ -228,11 +228,11 @@ inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
 frequenciaDigitalFrame = LabelFrame(
     root,
     text="Frequência Digital",
-    width=120,
+    width=145,
     height=75,
     borderwidth=0,
 )
-frequenciaDigitalFrame.place(in_=root, relx=0.4, rely=0.9, anchor=CENTER)
+frequenciaDigitalFrame.place(in_=root, relx=0.87, rely=0.32, anchor=CENTER)
 frequenciaDigitalInfoLabel = Label(
     frequenciaDigitalFrame,
     text=str(frequencia_digital),
