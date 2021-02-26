@@ -26,14 +26,14 @@ root.geometry("980x700")
 
 f = Figure(figsize=(10, 7), dpi=80)
 graficos = f.subplots(4)
-x = [0]
-y = [0]
+eixo_x = [0]
+eixo_y = [0]
 
 # Graficos:
-graficos[0].plot(x, y)  # Sinal analogico
-graficos[1].plot(x, y)  # Sequencia de bits aleatoria
-graficos[2].plot(x, y)  # Sinal digital
-graficos[3].plot(x, y)  # Pulso conformador
+graficos[0].plot(eixo_x, eixo_y)  # Sinal analogico
+graficos[1].plot(eixo_x, eixo_y)  # Sequencia de bits aleatoria
+graficos[2].plot(eixo_x, eixo_y)  # Sinal digital
+graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
 
 # X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
@@ -95,7 +95,7 @@ def seno(intervalo):
     return np.sin(intervalo * freqAngular)
 
 
-def gerarGrafico(i, x, y):
+def gerarGrafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
     global frequencia_analogica, frequencia_digital
@@ -185,7 +185,7 @@ def setFrequenciaDigital(event):
 ani = animation.FuncAnimation(
     f,
     gerarGrafico,
-    fargs=(x, y),
+    fargs=(eixo_x, eixo_y),
     interval=500,
 )
 
