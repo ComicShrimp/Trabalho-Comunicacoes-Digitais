@@ -5,6 +5,7 @@ import matplotlib.animation as animation
 from scipy import signal
 import numpy as np
 import random
+from tkinter import ttk
 
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -35,22 +36,22 @@ graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
 
 # X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
-graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
+graficos[0].set_ylabel("Sinal Analogico", fontweight="bold")
 graficos[0].set_ylim(-2, 2)
 
 # X/Y Sequencia de bits aleatorias
 graficos[1].set_xlabel("Tempo")
-graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
+graficos[1].set_ylabel("Sequencia de Bits", fontweight="bold")
 graficos[1].set_ylim(-2, 2)
 
 # X/Y Sinal digital referente a sequencia de bits
 graficos[2].set_xlabel("Tempo")
-graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
+graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
 graficos[2].set_ylim(-2, 2)
 
 # X/Y Pulso conformador
 graficos[3].set_xlabel("Tempo")
-graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
+graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 graficos[3].set_ylim(-2, 2)
 
 canvas = FigureCanvasTkAgg(f, janela_principal)
@@ -106,25 +107,25 @@ def gerarGrafico(i, eixo_x, eixo_y):
         graficos[0].clear()
         graficos[0].set_ylim(-2, 2)
         graficos[0].set_xlabel("Tempo")
-        graficos[0].set_ylabel("Sinal Analogico", fontweight='bold')
+        graficos[0].set_ylabel("Sinal Analogico", fontweight="bold")
 
         # Sinal Sequência de Bits
         graficos[1].clear()
         graficos[1].set_ylim(-2, 2)
         graficos[1].set_xlabel("Tempo")
-        graficos[1].set_ylabel("Sequencia de Bits", fontweight='bold')
+        graficos[1].set_ylabel("Sequencia de Bits", fontweight="bold")
 
         # Sinal Digital referente a Sequência de Bits
         graficos[2].clear()
         graficos[2].set_ylim(-2, 2)
         graficos[2].set_xlabel("Tempo")
-        graficos[2].set_ylabel("Sinal Digital", fontweight='bold')
+        graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
 
         # Sinal Pulso Conformador
         graficos[3].clear()
         graficos[3].set_ylim(-2, 2)
-        graficos[3].set_xlabel("Tempo", fontweight='bold')
-        graficos[3].set_ylabel("Pulso Conformador", fontweight='bold')
+        graficos[3].set_xlabel("Tempo", fontweight="bold")
+        graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
         sinal_analogico = np.sin(intervalo)
@@ -187,7 +188,14 @@ ani = animation.FuncAnimation(
 )
 
 
-iniciarBTN = Button(janela_principal, width=24, height=3, bg="#d3d3d3", text="Iniciar", command=funcIniciar)
+iniciarBTN = Button(
+    janela_principal,
+    width=24,
+    height=3,
+    bg="#d3d3d3",
+    text="Iniciar",
+    command=funcIniciar,
+)
 iniciarBTN.place(relx=0.87, rely=0.45, anchor=N)
 
 analogicoBTN = Button(
@@ -211,11 +219,7 @@ frequenciaAnalogicoFrame = LabelFrame(
     borderwidth=0,
 )
 frequenciaAnalogicoFrame.place(in_=janela_principal, relx=0.87, rely=0.2, anchor=CENTER)
-frequenciaAnalogicoInfoLabel = Label(
-    frequenciaAnalogicoFrame,
-    text=str(frequencia_analogica),
-)
-frequenciaAnalogicoInfoLabel.place(relx=0.5, rely=0.15, anchor=N)
+
 inputFrequenciaAnalogica = Entry(frequenciaAnalogicoFrame, width=12)
 inputFrequenciaAnalogica.place(relx=0.5, rely=0.55, anchor=N)
 inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
@@ -231,14 +235,20 @@ frequenciaDigitalFrame = LabelFrame(
     borderwidth=0,
 )
 frequenciaDigitalFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
-frequenciaDigitalInfoLabel = Label(
-    frequenciaDigitalFrame,
-    text=str(frequencia_digital),
-)
-frequenciaDigitalInfoLabel.place(relx=0.5, rely=0.15, anchor=N)
+
+
 inputFrequenciaDigital = Entry(frequenciaDigitalFrame, width=12)
 inputFrequenciaDigital.place(relx=0.5, rely=0.55, anchor=N)
 inputFrequenciaDigital.bind("<Return>", setFrequenciaDigital)
 
+comboBoxPulsoConformador = ttk.Combobox(
+    janela_principal,
+    values=[
+        "Pulso Retangular de Meio Período",
+        "Pulso Retangular de Período Completo",
+        "Pulso Triangular",
+    ],
+)
+comboBoxPulsoConformador.place(relx=0.5, rely=0.8, anchor=N)
 
 mainloop()
