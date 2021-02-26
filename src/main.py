@@ -37,23 +37,23 @@ graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
 
 # X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
-graficos[0].set_ylabel("Amplitude")
-graficos[0].set_ylim(-2, 5)
+graficos[0].set_ylabel("Sinal Analogico")
+graficos[0].set_ylim(-2, 2)
 
 # X/Y Sequencia de bits aleatorias
 graficos[1].set_xlabel("Tempo")
-graficos[1].set_ylabel("Amplitude")
-graficos[1].set_ylim(-2, 5)
+graficos[1].set_ylabel("Sequencia de Bits")
+graficos[1].set_ylim(-2, 2)
 
 # X/Y Sinal digital referente a sequencia de bits
 graficos[2].set_xlabel("Tempo")
-graficos[2].set_ylabel("Amplitude")
-graficos[2].set_ylim(-2, 5)
+graficos[2].set_ylabel("Sinal Digital")
+graficos[2].set_ylim(-2, 2)
 
 # X/Y Pulso conformador
 graficos[3].set_xlabel("Tempo")
-graficos[3].set_ylabel("Amplitude")
-graficos[3].set_ylim(-2, 5)
+graficos[3].set_ylabel("Pulso Conformador")
+graficos[3].set_ylim(-2, 2)
 
 canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
