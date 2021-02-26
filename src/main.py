@@ -25,19 +25,35 @@ root.config(bg="white")
 root.geometry("980x700")
 
 f = Figure(figsize=(10, 7), dpi=80)
-graficos = f.subplots(2)
+graficos = f.subplots(4)
 x = [0]
 y = [0]
-graficos[0].plot(x, y)
-graficos[1].plot(x, y)
-# Setando pro Sinal 0
+
+# Graficos:
+graficos[0].plot(x, y)  # Sinal analogico
+graficos[1].plot(x, y)  # Sequencia de bits aleatoria
+graficos[2].plot(x, y)  # Sinal digital
+graficos[3].plot(x, y)  # Pulso conformador
+
+# X/Y Sinal analogico
 graficos[0].set_xlabel("Tempo")
 graficos[0].set_ylabel("Amplitude")
 graficos[0].set_ylim(-2, 5)
-# Setando pro Sinal 1
+
+# X/Y Sequencia de bits aleatorias
 graficos[1].set_xlabel("Tempo")
 graficos[1].set_ylabel("Amplitude")
 graficos[1].set_ylim(-2, 5)
+
+# X/Y Sinal digital referente a sequencia de bits
+graficos[2].set_xlabel("Tempo")
+graficos[2].set_ylabel("Amplitude")
+graficos[2].set_ylim(-2, 5)
+
+# X/Y Pulso conformador
+graficos[3].set_xlabel("Tempo")
+graficos[3].set_ylabel("Amplitude")
+graficos[3].set_ylim(-2, 5)
 
 canvas = FigureCanvasTkAgg(f, root)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
