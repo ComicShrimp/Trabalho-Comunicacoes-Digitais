@@ -57,7 +57,7 @@ canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
-def funcIniciar():
+def funcao_iniciar():
     global iniciar
     if iniciar:
         iniciar = False
@@ -141,7 +141,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         minimo_tamanho_intervalo += 1
 
 
-def setTaxaSimbolo(event):
+def set_taxa_simbolo(event):
     global taxa_simbolo
     if float(input_taxa_simbolo.get().replace(",", ".")) >= 0:
         taxa_simbolo = float(input_taxa_simbolo.get().replace(",", "."))
@@ -163,17 +163,19 @@ ani = animation.FuncAnimation(
     interval=500,
 )
 
-# Botão iniciar
-iniciar_butao = Button(
+# Atribuindo os padrões do botão iniciar
+iniciarbutao = Button(
     janela_principal,
     width=20,
     height=3,
     bg="#d3d3d3",
     text="Iniciar",
-    command=funcIniciar,
+    command=funcao_iniciar,
 )
-iniciar_butao.place(relx=0.87, rely=0.8, anchor=N)
+# Definindo a posição do botão iniciar
+iniciarbutao.place(relx=0.87, rely=0.66, anchor=N)
 
+# Atribuindo padrões para a labelframe da taxa de símbolos
 taxa_simbolo_Frame = LabelFrame(
     janela_principal,
     text="Taxa de Símbolos",
@@ -181,7 +183,11 @@ taxa_simbolo_Frame = LabelFrame(
     height=75,
     borderwidth=0,
 )
-taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.18, anchor=CENTER)
+
+# Definindo a posição da labelframe
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.28, anchor=CENTER)
+
+
 taxa_simbolo_InfoLabel = Label(
     taxa_simbolo_Frame,
     text=str(taxa_simbolo),
@@ -189,8 +195,10 @@ taxa_simbolo_InfoLabel = Label(
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
 input_taxa_simbolo = Entry(taxa_simbolo_Frame, width=12)
 input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=N)
-input_taxa_simbolo.bind("<Return>", setTaxaSimbolo)
+input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
 
+
+# Atribuindo padrões para o combobox do pulso conformador
 pulso_conformador_frame = LabelFrame(
     janela_principal,
     text="Pulso Conformador",
@@ -198,6 +206,8 @@ pulso_conformador_frame = LabelFrame(
     height=75,
     borderwidth=0,
 )
+
+# Definindo a posição para o pulso conformador
 pulso_conformador_frame.place(in_=janela_principal, relx=0.87, rely=0.5, anchor=CENTER)
 
 combo_box_pulso_conformador = ttk.Combobox(
