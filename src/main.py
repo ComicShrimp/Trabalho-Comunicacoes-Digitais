@@ -137,10 +137,12 @@ def gerar_grafico(i, eixo_x, eixo_y):
             "Retangular: Período Completo": funcao_exemplo_pulso_conformador,
         }
 
+        # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
             combo_box_pulso_conformador.get()
         )
 
+        # Chama função correspondente a operação acima
         sinal_pulso_conformador = sinal_pulso_conformador(intervalo)
 
         # Sinal Pulso Conformador
@@ -150,6 +152,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
             "r",
         )
 
+        # Movimento de tempo do gráfico
         maximo_tamanho_intervalo += 1
         minimo_tamanho_intervalo += 1
 
