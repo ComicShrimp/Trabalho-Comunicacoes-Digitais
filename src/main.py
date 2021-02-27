@@ -49,7 +49,7 @@ graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
 graficos[2].set_ylim(-2, 2)
 
 # X/Y Pulso conformador
-graficos[3].set_xlabel("Tempo")
+graficos[3].set_xlabel("Tempo", fontweight="bold")
 graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 graficos[3].set_ylim(-2, 2)
 
