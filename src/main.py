@@ -168,9 +168,6 @@ iniciarbutao = Button(
 )
 iniciarbutao.place(relx=0.87, rely=0.8, anchor=N)
 
-######################################
-########  Taxa de Símbolos   #########
-######################################
 taxa_simbolo_Frame = LabelFrame(
     janela_principal,
     text="Taxa de Símbolos",
