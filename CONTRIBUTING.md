@@ -4,7 +4,8 @@ Este projeto utiliza alguns padrões de desenvolvimento para garantir que o cód
 
 ## Padrão de escrita:
 
-Padrão de escrita utilizado é o snake case, em conjunto com o clean code.
+Padrão de escrita utilizado é o snake case, em conjunto com o clean code.  
+Todo o projeto será codificado em português, para facilitar o entendimento de todos.
 
 ### Clean Code:
 

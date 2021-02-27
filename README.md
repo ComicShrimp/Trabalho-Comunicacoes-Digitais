@@ -42,3 +42,15 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 - matplotlib
 - autopep8
 - numpy
+
+## Todo
+- [ ] [Kristhyan, Allef, Mikael]  Interface 
+- [ ] [Mário] Sinal Analogico 
+- [ ] [João] Sequência de bits aleatória 
+- [ ] Sinal de digital correspondente a sequência de bits
+- [ ] Controlar a taxa de símbolos
+- [ ] Pulso conformador (ComboBox)
+  - [ ] Mapeamento (bits -> nº real) 1 -> 1 / 0 -> -1
+  - [ ] [Fabrício] Pulso retangular de meio periodo 
+  - [ ] [Antônio] Pulso retangular de periodo completo 
+  - [ ] [Felipe] Pulso trinagular
