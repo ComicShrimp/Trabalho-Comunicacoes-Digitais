@@ -135,7 +135,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         minimo_tamanho_intervalo += 1
 
 
-def setTaxaSimbolo(event):
+def set_taxa_simbolo(event):
     global taxa_simbolo
     if float(input_taxa_simbolo.get().replace(",", ".")) >= 0:
         taxa_simbolo = float(input_taxa_simbolo.get().replace(",", "."))
@@ -183,7 +183,7 @@ taxa_simbolo_InfoLabel = Label(
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
 input_taxa_simbolo = Entry(taxa_simbolo_Frame, width=12)
 input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=N)
-input_taxa_simbolo.bind("<Return>", setTaxaSimbolo)
+input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
 
 pulso_conformador_frame = LabelFrame(
     janela_principal,
