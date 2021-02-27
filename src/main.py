@@ -17,7 +17,6 @@ frequencia_digital = 2
 taxa_simbolo = 3
 minimo_tamanho_intervalo = 0
 maximo_tamanho_intervalo = 15
-taxaSimbolo = True
 digital = True
 
 janela_principal.title("Gerador de Sinais")
@@ -62,19 +61,19 @@ def funcIniciar():
     global iniciar
     if iniciar:
         iniciar = False
-        iniciarBTN["text"] = "Iniciar"
+        iniciar_butao["text"] = "Iniciar"
     else:
         iniciar = True
-        iniciarBTN["text"] = "Pausar"
+        iniciar_butao["text"] = "Pausar"
 
 
 def seno(intervalo):
-    global freqAngular
+    global frequencia_angular
 
-    return np.sin(intervalo * freqAngular)
+    return np.sin(intervalo * frequencia_angular)
 
 
-def gerarGrafico(i, eixo_x, eixo_y):
+def gerar_grafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
     global taxa_simbolo, frequencia_digital
@@ -106,8 +105,8 @@ def gerarGrafico(i, eixo_x, eixo_y):
         graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
-        taxaSimbolo = np.sin(intervalo)
-        graficos[0].plot(intervalo, taxaSimbolo, "c")
+        sinal_analogico = np.sin(intervalo)
+        graficos[0].plot(intervalo, sinal_analogico, "c")
 
         # Sinal Sequência de Bits
         sinal_senquencia_bits = signal.square(intervalo)
@@ -138,28 +137,28 @@ def gerarGrafico(i, eixo_x, eixo_y):
 
 def setTaxaSimbolo(event):
     global taxa_simbolo
-    if float(inputTaxaSimbolo.get().replace(",", ".")) >= 0:
-        taxa_simbolo = float(inputTaxaSimbolo.get().replace(",", "."))
-        taxa_simbolo_InfoLabel["text"] = inputTaxaSimbolo.get()
+    if float(input_taxa_simbolo.get().replace(",", ".")) >= 0:
+        taxa_simbolo = float(input_taxa_simbolo.get().replace(",", "."))
+        taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
         messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
-    inputTaxaSimbolo.delete(0, END)
+    input_taxa_simbolo.delete(0, END)
 
 
-def setPulsoConformador(event):
-    print(comboBoxPulsoConformador.get())
+def set_pulso_conformador(event):
+    print(combo_box_pulso_conformador.get())
 
 
 ani = animation.FuncAnimation(
     f,
-    gerarGrafico,
+    gerar_grafico,
     fargs=(eixo_x, eixo_y),
     interval=500,
 )
 
 # Botão iniciar
-iniciarBTN = Button(
+iniciarbutao = Button(
     janela_principal,
     width=24,
     height=3,
@@ -167,7 +166,7 @@ iniciarBTN = Button(
     text="Iniciar",
     command=funcIniciar,
 )
-iniciarBTN.place(relx=0.87, rely=0.65, anchor=N)
+iniciarbutao.place(relx=0.87, rely=0.65, anchor=N)
 
 ######################################
 ########  Taxa de Símbolos   #########
@@ -185,28 +184,28 @@ taxa_simbolo_InfoLabel = Label(
     text=str(taxa_simbolo),
 )
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
-inputTaxaSimbolo = Entry(taxa_simbolo_Frame, width=12)
-inputTaxaSimbolo.place(relx=0.5, rely=0.55, anchor=N)
-inputTaxaSimbolo.bind("<Return>", setTaxaSimbolo)
+input_taxa_simbolo = Entry(taxa_simbolo_Frame, width=12)
+input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=N)
+input_taxa_simbolo.bind("<Return>", setTaxaSimbolo)
 
-pulsoConformadorFrame = LabelFrame(
+pulso_conformador_frame = LabelFrame(
     janela_principal,
     text="Pulso Conformador",
     width=180,
     height=75,
     borderwidth=0,
 )
-pulsoConformadorFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
+pulso_conformador_frame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
 
-comboBoxPulsoConformador = ttk.Combobox(
-    pulsoConformadorFrame,
+combo_box_pulso_conformador = ttk.Combobox(
+    pulso_conformador_frame,
     values=[
         "Pulso Retangular de Meio Período",
         "Pulso Retangular de Período Completo",
         "Pulso Triangular",
     ],
 )
-comboBoxPulsoConformador.place(relx=0.5, rely=0.5, anchor=N)
-comboBoxPulsoConformador.bind("<<ComboboxSelected>>", setPulsoConformador)
+combo_box_pulso_conformador.place(relx=0.5, rely=0.5, anchor=N)
+combo_box_pulso_conformador.bind("<<ComboboxSelected>>", set_pulso_conformador)
 
 mainloop()
