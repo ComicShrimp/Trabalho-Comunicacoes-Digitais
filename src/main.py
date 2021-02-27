@@ -158,7 +158,7 @@ ani = animation.FuncAnimation(
 )
 
 # Botão iniciar
-iniciarbutao = Button(
+iniciar_butao = Button(
     janela_principal,
     width=24,
     height=3,
@@ -166,7 +166,7 @@ iniciarbutao = Button(
     text="Iniciar",
     command=funcIniciar,
 )
-iniciarbutao.place(relx=0.87, rely=0.65, anchor=N)
+iniciar_butao.place(relx=0.87, rely=0.65, anchor=N)
 
 ######################################
 ########  Taxa de Símbolos   #########
