@@ -108,16 +108,32 @@ def gerar_grafico(i, eixo_x, eixo_y):
         sinal_analogico = np.sin(intervalo)
         graficos[0].plot(intervalo, sinal_analogico, "c")
 
+        """""" """
+        Antes da Geração da sequência de bits e do sinal digital correspondente
+        devemos passar a taxa de Símbolos recebida pela interface
+        como parâmetros para as funções
+
+        Obs: O valor fornecido pela interface está armazenado na variável `taxa_simbolo`
+        """ """"""
+
+        """""" """
+        Substitua as devidas funções correspondentes em `signal.square(intervalo)`
+        """ """ """
+
         # Sinal Sequência de Bits
-        sinal_senquencia_bits = signal.square(intervalo)
+        sinal_senquencia_bits = signal.square(
+            intervalo
+        )  # Função do Sinal de sequência de Bits
         graficos[1].plot(
             intervalo,
             sinal_senquencia_bits,
-            "r",
+            "g",
         )
 
         # Sinal Digital referente a Sequência de Bits
-        sinal_digital = signal.square(intervalo)
+        sinal_digital = signal.square(
+            intervalo
+        )  # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
             intervalo,
             sinal_digital,
@@ -146,11 +162,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         sinal_pulso_conformador = sinal_pulso_conformador(intervalo)
 
         # Sinal Pulso Conformador
-        graficos[3].plot(
-            intervalo,
-            sinal_pulso_conformador,
-            "r",
-        )
+        graficos[3].plot(intervalo, sinal_pulso_conformador)
 
         # Movimento de tempo do gráfico
         maximo_tamanho_intervalo += 1
