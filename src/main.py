@@ -11,13 +11,17 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
+
 janela_principal = Tk()
 iniciar = False
-frequencia_digital = 2
-taxa_simbolo = 3
 minimo_tamanho_intervalo = 0
-maximo_tamanho_intervalo = 15
+maximo_tamanho_intervalo = 10
 digital = True
+
+numero_amostras = 500
+taxa_simbolo = 3
+numero_simbolo = numero_amostras / taxa_simbolo
+
 
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
@@ -70,13 +74,13 @@ def funcao_iniciar():
 # Função de exemplo, ao final ela será exlcuída
 # para dar lugar as pertinentes
 def funcao_exemplo_pulso_conformador(intervalo):
-    return signal.square(intervalo)
+    return np.sin(intervalo)
 
 
 def gerar_grafico(i, eixo_x, eixo_y):
-    global intervalo, iniciar
+    global iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
-    global taxa_simbolo, frequencia_digital
+    global taxa_simbolo, numero_amostras, numero_simbolo
 
     if iniciar:
         intervalo = np.linspace(
@@ -121,13 +125,16 @@ def gerar_grafico(i, eixo_x, eixo_y):
         """ """ """
 
         # Sinal Sequência de Bits
-        sinal_senquencia_bits = signal.square(
-            intervalo
+        numero_simbolo = numero_amostras / taxa_simbolo
+        sinal_senquencia_bits = 2 * (
+            np.random.randint(1, 3, size=int(numero_simbolo)) - 1.5
         )  # Função do Sinal de sequência de Bits
-        graficos[1].plot(
-            intervalo,
+        sinal_senquencia_bits = (sinal_senquencia_bits + 1) / 2
+
+        graficos[1].stem(
+            range(0, int(numero_simbolo)),
             sinal_senquencia_bits,
-            "g",
+            use_line_collection=True,
         )
 
         # Sinal Digital referente a Sequência de Bits
@@ -171,8 +178,8 @@ def gerar_grafico(i, eixo_x, eixo_y):
 
 def set_taxa_simbolo(event):
     global taxa_simbolo
-    if float(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        taxa_simbolo = float(input_taxa_simbolo.get().replace(",", "."))
+    if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
+        taxa_simbolo = int(input_taxa_simbolo.get().replace(",", "."))
         taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
         messagebox.showerror("Erro", "Taxa de símbolos inválida")
@@ -188,7 +195,7 @@ ani = animation.FuncAnimation(
     f,
     gerar_grafico,
     fargs=(eixo_x, eixo_y),
-    interval=1000,
+    interval=500,
 )
 
 # Atribuindo os padrões do botão iniciar
