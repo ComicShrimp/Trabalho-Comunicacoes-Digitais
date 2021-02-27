@@ -161,13 +161,13 @@ ani = animation.FuncAnimation(
 # Botão iniciar
 iniciarBTN = Button(
     janela_principal,
-    width=24,
+    width=20,
     height=3,
     bg="#d3d3d3",
     text="Iniciar",
     command=funcIniciar,
 )
-iniciarBTN.place(relx=0.87, rely=0.65, anchor=N)
+iniciarBTN.place(relx=0.87, rely=0.8, anchor=N)
 
 ######################################
 ########  Taxa de Símbolos   #########
@@ -175,17 +175,17 @@ iniciarBTN.place(relx=0.87, rely=0.65, anchor=N)
 taxa_simbolo_Frame = LabelFrame(
     janela_principal,
     text="Taxa de Símbolos",
-    width=145,
+    width=180,
     height=75,
     borderwidth=0,
 )
-taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.2, anchor=CENTER)
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.18, anchor=CENTER)
 taxa_simbolo_InfoLabel = Label(
     taxa_simbolo_Frame,
     text=str(taxa_simbolo),
 )
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
-inputTaxaSimbolo = Entry(taxa_simbolo_Frame, width=12)
+inputTaxaSimbolo = Entry(taxa_simbolo_Frame, width=20)
 inputTaxaSimbolo.place(relx=0.5, rely=0.55, anchor=N)
 inputTaxaSimbolo.bind("<Return>", setTaxaSimbolo)
 
@@ -196,17 +196,18 @@ pulsoConformadorFrame = LabelFrame(
     height=75,
     borderwidth=0,
 )
-pulsoConformadorFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
+pulsoConformadorFrame.place(in_=janela_principal, relx=0.87, rely=0.5, anchor=CENTER)
 
 comboBoxPulsoConformador = ttk.Combobox(
     pulsoConformadorFrame,
     values=[
-        "Pulso Retangular de Meio Período",
-        "Pulso Retangular de Período Completo",
-        "Pulso Triangular",
+        "Retangular: Meio Período",
+        "Retangular: Período Completo",
+        "Triangular",
     ],
 )
 comboBoxPulsoConformador.place(relx=0.5, rely=0.5, anchor=N)
 comboBoxPulsoConformador.bind("<<ComboboxSelected>>", setPulsoConformador)
+comboBoxPulsoConformador.current(0)
 
 mainloop()
