@@ -57,7 +57,7 @@ canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
-def funcIniciar():
+def funcao_iniciar():
     global iniciar
     if iniciar:
         iniciar = False
@@ -164,7 +164,7 @@ iniciar_butao = Button(
     height=3,
     bg="#d3d3d3",
     text="Iniciar",
-    command=funcIniciar,
+    command=funcao_iniciar,
 )
 iniciar_butao.place(relx=0.87, rely=0.8, anchor=N)
 
