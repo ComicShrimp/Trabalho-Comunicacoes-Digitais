@@ -67,6 +67,12 @@ def funcao_iniciar():
         iniciar_butao["text"] = "Pausar"
 
 
+# Função de exemplo, ao final ela será exlcuída
+# para dar lugar as pertinentes
+def funcao_exemplo_pulso_conformador(intervalo):
+    return signal.square(intervalo)
+
+
 def gerar_grafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
@@ -118,22 +124,29 @@ def gerar_grafico(i, eixo_x, eixo_y):
             "r",
         )
 
-        # Sinal Pulso Conformador
-
+        """""" """"""
+        # Substitua as funções funcao_exemplo_pulso_conformador
+        # pela sua função correspondente
+        # OBS: Todas as funções devem manter os mesmos padrões
+        # de parâmetros
+        """""" """"""
         # Dicionário de pulso conformador
         dicionario_pulso_conformador = {
-            "Triangular": print("Triangular"),
-            "Retangular: Meio Período": print("Retangular: Meio Período"),
-            "Retangular: Período Completo": print("Retangular: Período Completo"),
+            "Triangular": funcao_exemplo_pulso_conformador,
+            "Retangular: Meio Período": funcao_exemplo_pulso_conformador,
+            "Retangular: Período Completo": funcao_exemplo_pulso_conformador,
         }
+
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
             combo_box_pulso_conformador.get()
         )
 
-        sinal_digital = signal.square(intervalo)
+        sinal_pulso_conformador = sinal_pulso_conformador(intervalo)
+
+        # Sinal Pulso Conformador
         graficos[3].plot(
             intervalo,
-            sinal_digital,
+            sinal_pulso_conformador,
             "r",
         )
 
@@ -160,11 +173,11 @@ ani = animation.FuncAnimation(
     f,
     gerar_grafico,
     fargs=(eixo_x, eixo_y),
-    interval=500,
+    interval=1000,
 )
 
 # Atribuindo os padrões do botão iniciar
-iniciarbutao = Button(
+iniciar_butao = Button(
     janela_principal,
     width=20,
     height=3,
@@ -173,7 +186,7 @@ iniciarbutao = Button(
     command=funcao_iniciar,
 )
 # Definindo a posição do botão iniciar
-iniciarbutao.place(relx=0.87, rely=0.66, anchor=N)
+iniciar_butao.place(relx=0.87, rely=0.66, anchor=N)
 
 # Atribuindo padrões para a labelframe da taxa de símbolos
 taxa_simbolo_Frame = LabelFrame(
