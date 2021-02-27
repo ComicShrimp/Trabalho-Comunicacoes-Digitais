@@ -57,7 +57,7 @@ canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
-def funcIniciar():
+def funcao_iniciar():
     global iniciar
     if iniciar:
         iniciar = False
@@ -135,7 +135,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         minimo_tamanho_intervalo += 1
 
 
-def setTaxaSimbolo(event):
+def set_taxa_simbolo(event):
     global taxa_simbolo
     if float(input_taxa_simbolo.get().replace(",", ".")) >= 0:
         taxa_simbolo = float(input_taxa_simbolo.get().replace(",", "."))
@@ -164,7 +164,7 @@ iniciarbutao = Button(
     height=3,
     bg="#d3d3d3",
     text="Iniciar",
-    command=funcIniciar,
+    command=funcao_iniciar,
 )
 # Definindo a posição do botão iniciar
 iniciarbutao.place(relx=0.87, rely=0.66, anchor=N)
@@ -189,7 +189,7 @@ taxa_simbolo_InfoLabel = Label(
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
 input_taxa_simbolo = Entry(taxa_simbolo_Frame, width=12)
 input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=N)
-input_taxa_simbolo.bind("<Return>", setTaxaSimbolo)
+input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
 
 
 # Atribuindo padrões para o combobox do pulso conformador
