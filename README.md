@@ -24,17 +24,17 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 ## Observações:
 - Frequencia digital == taxa de simbolo
 - Observar os Códigos de linhas
-## Melhorias 
-- [ ] Acrescentar multiplos gráficos a interface (3 Gráficos)
-  - [ ] Sinal Analogico
-  - [ ] Sequência de bits aleatória
-  - [ ] Sinal de digital correspondente a sequência de bits
-- [ ] Controlar a taxa de símbolos (Somente)
-- [ ] Ter a opção de escolher o pulso conformador (ComboBox)
+## Atribuições
+- [ ] Interface [Kristhyan, Allef, Mikael] 
+- [ ] Sinal Analogico [Mário]
+- [ ] Sequência de bits aleatória [João]
+- [ ] Sinal de digital correspondente a sequência de bits
+- [ ] Controlar a taxa de símbolos
+- [ ] Pulso conformador (ComboBox)
   - [ ] Mapeamento (bits -> nº real) 1 -> 1 / 0 -> -1
-  - [ ] Pulso retangular de meio periodo
-  - [ ] Pulso retangular de periodo completo
-  - [ ] Pulso trinagular
+  - [ ] Pulso retangular de meio periodo [Fabrício]
+  - [ ] Pulso retangular de periodo completo [Antônio]
+  - [ ] Pulso trinagular [Felipe]
 
 ## Bibliotecas utilizadas
 

@@ -5,34 +5,56 @@ import matplotlib.animation as animation
 from scipy import signal
 import numpy as np
 import random
+from tkinter import ttk
 
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
-root = Tk()
+janela_principal = Tk()
 iniciar = False
 frequencia_digital = 2
-frequencia_analogica = 1
+taxa_simbolo = 3
 minimo_tamanho_intervalo = 0
 maximo_tamanho_intervalo = 15
-analogico = True
+taxaSimbolo = True
 digital = True
 
-root.title("Gerador de Sinais")
-root.resizable(True, True)
-root.config(bg="white")
-root.geometry("860x600")
+janela_principal.title("Gerador de Sinais")
+janela_principal.resizable(True, True)
+janela_principal.config(bg="white")
+janela_principal.geometry("980x600")
 
-f = Figure(figsize=(10, 6), dpi=85)
-a = f.add_subplot(111)
-x = [0]
-y = [0]
-a.plot(x, y)
-a.set_xlabel("Tempo")
-a.set_ylabel("Amplitude")
-a.set_ylim(-2, 5)
-canvas = FigureCanvasTkAgg(f, root)
+f = Figure(figsize=(10, 7), dpi=80)
+graficos = f.subplots(4)
+eixo_x = [0]
+eixo_y = [0]
+
+# Graficos:
+graficos[0].plot(eixo_x, eixo_y)  # Sinal analogico
+graficos[1].plot(eixo_x, eixo_y)  # Sequencia de bits aleatoria
+graficos[2].plot(eixo_x, eixo_y)  # Sinal digital
+graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
+
+# X/Y Sinal analogico
+
+graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
+graficos[0].set_ylim(-2, 2)
+
+# X/Y Sequencia de bits aleatorias
+graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
+graficos[1].set_ylim(-2, 2)
+
+# X/Y Sinal digital referente a sequencia de bits
+graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
+graficos[2].set_ylim(-2, 2)
+
+# X/Y Pulso conformador
+graficos[3].set_xlabel("Tempo")
+graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
+graficos[3].set_ylim(-2, 2)
+
+canvas = FigureCanvasTkAgg(f, janela_principal)
 grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
@@ -46,150 +68,145 @@ def funcIniciar():
         iniciarBTN["text"] = "Pausar"
 
 
-def analogico():
-    global analogico
-    if analogico:
-        analogico = False
-        analogicoBTN["text"] = "Mostar analógico"
-    else:
-        analogico = True
-        analogicoBTN["text"] = "Ocutar analógico"
-
-
-def digital():
-    global digital
-    if digital:
-        digital = False
-        digitalBTN["text"] = "Mostar digital"
-    else:
-        digital = True
-        digitalBTN["text"] = "Ocutar digital"
-
-
 def seno(intervalo):
     global freqAngular
 
     return np.sin(intervalo * freqAngular)
 
 
-def gerarGrafico(i, x, y):
+def gerarGrafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
-    global frequencia_analogica, frequencia_digital
+    global taxa_simbolo, frequencia_digital
 
     if iniciar:
         intervalo = np.linspace(
             minimo_tamanho_intervalo, maximo_tamanho_intervalo, 256
         ) * random.uniform(0.9, 1)
 
-        a.clear()
-        a.set_ylim(-2, 2)
-        a.set_xlabel("Tempo")
-        a.set_ylabel("Amplitude")
+        # Sinal Analógico
+        graficos[0].clear()
+        graficos[0].set_ylim(-2, 2)
+        graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
 
-        # analógico
-        if analogico:
-            freqAngularAnalogica = 2 * np.pi * frequencia_analogica
-            sinalseno = np.sin(intervalo * freqAngularAnalogica) * random.uniform(
-                0.9, 1
-            )
-            a.plot(intervalo, sinalseno, "c")
+        # Sinal Sequência de Bits
+        graficos[1].clear()
+        graficos[1].set_ylim(-2, 2)
+        graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
 
-        # digital
-        if digital:
-            freqAngularDigital = 2 * np.pi * frequencia_digital
-            sinalQuadrado = signal.square(intervalo * freqAngularDigital)
-            a.plot(
-                intervalo,
-                sinalQuadrado,
-                "r",
-            )
+        # Sinal Digital referente a Sequência de Bits
+        graficos[2].clear()
+        graficos[2].set_ylim(-2, 2)
+        graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
+
+        # Sinal Pulso Conformador
+        graficos[3].clear()
+        graficos[3].set_ylim(-2, 2)
+        graficos[3].set_xlabel("Tempo", fontweight="bold")
+        graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
+
+        # Sinal Analógico
+        taxaSimbolo = np.sin(intervalo)
+        graficos[0].plot(intervalo, taxaSimbolo, "c")
+
+        # Sinal Sequência de Bits
+        sinal_senquencia_bits = signal.square(intervalo)
+        graficos[1].plot(
+            intervalo,
+            sinal_senquencia_bits,
+            "r",
+        )
+
+        # Sinal Digital referente a Sequência de Bits
+        sinal_digital = signal.square(intervalo)
+        graficos[2].plot(
+            intervalo,
+            sinal_digital,
+            "r",
+        )
+        # Sinal Pulso Conformador
+        sinal_digital = signal.square(intervalo)
+        graficos[3].plot(
+            intervalo,
+            sinal_digital,
+            "r",
+        )
 
         maximo_tamanho_intervalo += 1
         minimo_tamanho_intervalo += 1
 
 
-def setFrequenciaAnalogica(event):
-    global frequencia_analogica
-    if float(inputFrequenciaAnalogica.get().replace(",", ".")) >= 0:
-        frequencia_analogica = float(inputFrequenciaAnalogica.get().replace(",", "."))
-        frequenciaAnalogicoInfoLabel["text"] = inputFrequenciaAnalogica.get()
+def setTaxaSimbolo(event):
+    global taxa_simbolo
+    if float(inputTaxaSimbolo.get().replace(",", ".")) >= 0:
+        taxa_simbolo = float(inputTaxaSimbolo.get().replace(",", "."))
+        taxa_simbolo_InfoLabel["text"] = inputTaxaSimbolo.get()
     else:
-        messagebox.showerror("Erro", "Frequência inválida")
+        messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
-    inputFrequenciaAnalogica.delete(0, END)
+    inputTaxaSimbolo.delete(0, END)
 
 
-def setFrequenciaDigital(event):
-    global frequencia_digital
-    if float(inputFrequenciaDigital.get().replace(",", ".")) >= 0:
-        frequencia_digital = float(inputFrequenciaDigital.get().replace(",", "."))
-        frequenciaDigitalInfoLabel["text"] = inputFrequenciaDigital.get()
-    else:
-        messagebox.showerror("Erro", "Frequência inválida")
-
-    inputFrequenciaDigital.delete(0, END)
+def setPulsoConformador(event):
+    print(comboBoxPulsoConformador.get())
 
 
 ani = animation.FuncAnimation(
     f,
     gerarGrafico,
-    fargs=(x, y),
+    fargs=(eixo_x, eixo_y),
     interval=500,
 )
 
-iniciarBTN = Button(root, width=9, text="Iniciar", command=funcIniciar)
-iniciarBTN.place(relx=0.9, rely=0.9, anchor=N)
-
-analogicoBTN = Button(
-    root, width=12, text="Ocutar analógico", bg="#00CED1", command=analogico
+# Botão iniciar
+iniciarBTN = Button(
+    janela_principal,
+    width=24,
+    height=3,
+    bg="#d3d3d3",
+    text="Iniciar",
+    command=funcIniciar,
 )
-analogicoBTN.place(relx=0.75, rely=0.9, anchor=N)
-
-digitalBTN = Button(
-    root, width=12, text="Ocutar digital", bg="#C4302B", command=digital
-)
-digitalBTN.place(relx=0.6, rely=0.9, anchor=N)
+iniciarBTN.place(relx=0.87, rely=0.65, anchor=N)
 
 ######################################
-############  Analógico   ############
+########  Taxa de Símbolos   #########
 ######################################
-frequenciaAnalogicoFrame = LabelFrame(
-    root,
-    text="Frequência Analógico",
+taxa_simbolo_Frame = LabelFrame(
+    janela_principal,
+    text="Taxa de Símbolos",
     width=145,
     height=75,
     borderwidth=0,
 )
-frequenciaAnalogicoFrame.place(in_=root, relx=0.15, rely=0.9, anchor=CENTER)
-frequenciaAnalogicoInfoLabel = Label(
-    frequenciaAnalogicoFrame,
-    text=str(frequencia_analogica),
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.2, anchor=CENTER)
+taxa_simbolo_InfoLabel = Label(
+    taxa_simbolo_Frame,
+    text=str(taxa_simbolo),
 )
-frequenciaAnalogicoInfoLabel.place(relx=0.5, rely=0.15, anchor=N)
-inputFrequenciaAnalogica = Entry(frequenciaAnalogicoFrame, width=12)
-inputFrequenciaAnalogica.place(relx=0.5, rely=0.55, anchor=N)
-inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
+taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
+inputTaxaSimbolo = Entry(taxa_simbolo_Frame, width=12)
+inputTaxaSimbolo.place(relx=0.5, rely=0.55, anchor=N)
+inputTaxaSimbolo.bind("<Return>", setTaxaSimbolo)
 
-######################################
-############    Digital   ############
-######################################
-frequenciaDigitalFrame = LabelFrame(
-    root,
-    text="Frequência Digital",
-    width=120,
+pulsoConformadorFrame = LabelFrame(
+    janela_principal,
+    text="Pulso Conformador",
+    width=180,
     height=75,
     borderwidth=0,
 )
-frequenciaDigitalFrame.place(in_=root, relx=0.4, rely=0.9, anchor=CENTER)
-frequenciaDigitalInfoLabel = Label(
-    frequenciaDigitalFrame,
-    text=str(frequencia_digital),
-)
-frequenciaDigitalInfoLabel.place(relx=0.5, rely=0.15, anchor=N)
-inputFrequenciaDigital = Entry(frequenciaDigitalFrame, width=12)
-inputFrequenciaDigital.place(relx=0.5, rely=0.55, anchor=N)
-inputFrequenciaDigital.bind("<Return>", setFrequenciaDigital)
+pulsoConformadorFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
 
+comboBoxPulsoConformador = ttk.Combobox(
+    pulsoConformadorFrame,
+    values=[
+        "Pulso Retangular de Meio Período",
+        "Pulso Retangular de Período Completo",
+        "Pulso Triangular",
+    ],
+)
+comboBoxPulsoConformador.place(relx=0.5, rely=0.5, anchor=N)
+comboBoxPulsoConformador.bind("<<ComboboxSelected>>", setPulsoConformador)
 
 mainloop()
