@@ -164,15 +164,8 @@ def setFrequenciaAnalogica(event):
     inputFrequenciaAnalogica.delete(0, END)
 
 
-def setFrequenciaDigital(event):
-    global frequencia_digital
-    if float(inputFrequenciaDigital.get().replace(",", ".")) >= 0:
-        frequencia_digital = float(inputFrequenciaDigital.get().replace(",", "."))
-        frequenciaDigitalInfoLabel["text"] = inputFrequenciaDigital.get()
-    else:
-        messagebox.showerror("Erro", "Frequência inválida")
-
-    inputFrequenciaDigital.delete(0, END)
+def setPulsoConformador(event):
+    print(inputFrequenciaAnalogica.get())
 
 
 ani = animation.FuncAnimation(
@@ -203,9 +196,6 @@ digitalBTN = Button(
 )
 digitalBTN.place(relx=0.82, rely=0.4, anchor=N)
 
-######################################
-############  Analógico   ############
-######################################
 frequenciaAnalogicoFrame = LabelFrame(
     janela_principal,
     text="Frequência Analógico",
@@ -219,31 +209,24 @@ inputFrequenciaAnalogica = Entry(frequenciaAnalogicoFrame, width=12)
 inputFrequenciaAnalogica.place(relx=0.5, rely=0.55, anchor=N)
 inputFrequenciaAnalogica.bind("<Return>", setFrequenciaAnalogica)
 
-######################################
-############    Digital   ############
-######################################
-frequenciaDigitalFrame = LabelFrame(
+pulsoConformadorFrame = LabelFrame(
     janela_principal,
-    text="Frequência Digital",
-    width=145,
+    text="Pulso Conformador",
+    width=180,
     height=75,
     borderwidth=0,
 )
-frequenciaDigitalFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
-
-
-inputFrequenciaDigital = Entry(frequenciaDigitalFrame, width=12)
-inputFrequenciaDigital.place(relx=0.5, rely=0.55, anchor=N)
-inputFrequenciaDigital.bind("<Return>", setFrequenciaDigital)
+pulsoConformadorFrame.place(in_=janela_principal, relx=0.87, rely=0.32, anchor=CENTER)
 
 comboBoxPulsoConformador = ttk.Combobox(
-    janela_principal,
+    pulsoConformadorFrame,
     values=[
         "Pulso Retangular de Meio Período",
         "Pulso Retangular de Período Completo",
         "Pulso Triangular",
     ],
 )
-comboBoxPulsoConformador.place(relx=0.5, rely=0.8, anchor=N)
+comboBoxPulsoConformador.place(relx=0.5, rely=0.5, anchor=N)
+comboBoxPulsoConformador.bind("<<ComboboxSelected>>", setPulsoConformador)
 
 mainloop()
