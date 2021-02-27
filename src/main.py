@@ -67,12 +67,6 @@ def funcIniciar():
         iniciar_butao["text"] = "Pausar"
 
 
-def seno(intervalo):
-    global frequencia_angular
-
-    return np.sin(intervalo * frequencia_angular)
-
-
 def gerar_grafico(i, eixo_x, eixo_y):
     global intervalo, iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
@@ -123,7 +117,19 @@ def gerar_grafico(i, eixo_x, eixo_y):
             sinal_digital,
             "r",
         )
+
         # Sinal Pulso Conformador
+
+        # Dicionário de pulso conformador
+        dicionario_pulso_conformador = {
+            "Triangular": print("Triangular"),
+            "Retangular: Meio Período": print("Retangular: Meio Período"),
+            "Retangular: Período Completo": print("Retangular: Período Completo"),
+        }
+        sinal_pulso_conformador = dicionario_pulso_conformador.get(
+            combo_box_pulso_conformador.get()
+        )
+
         sinal_digital = signal.square(intervalo)
         graficos[3].plot(
             intervalo,
