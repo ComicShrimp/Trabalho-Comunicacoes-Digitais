@@ -107,7 +107,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
-        graficos[0].plot(sinal_analogico(intervalo), "c")
+        graficos[0].plot(sinal_analogico(numero_amostras), "c")
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
