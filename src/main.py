@@ -8,6 +8,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from scipy import signal
+from scipy.fftpack import fft, fftshift
 
 import config
 from sinais.sinal_analogico import sinal_analogico
@@ -59,17 +60,29 @@ def funcao_iniciar():
 
 # Função de exemplo, ao final ela será exlcuída
 # para dar lugar as pertinentes
-def funcao_exemplo_pulso_conformador(intervalo):
-    return np.sin(intervalo)
+def puls_conformador_periodo_completo(taxa_amostragem):
+    pShaping = np.ones((1, taxa_amostragem), dtype=int)
+    # pShaping[0, meio:] = 0
+    return pShaping[0]
+
+
+def pulso_conformador_meio_periodo(taxa_amostragem):
+    meio = int(taxa_amostragem / 2)
+    pShaping = np.ones((1, taxa_amostragem), dtype=int)
+    pShaping[0, meio:] = 0
+    return pShaping[0]
+
+
+def pulso_conformador_triangular(taxa_amostragem):
+    return signal.triang(taxa_amostragem)
+    #20 * np.log10(np.abs(fftshift(A / abs(A).max())))
 
 
 def gerar_grafico(i):
     global taxa_simbolo, numero_amostras, numero_simbolo
 
     if config.INICIAR_ANIMACAO:
-        intervalo = np.linspace(
-            0, 10, 256
-        ) * random.uniform(0.9, 1)
+        intervalo = np.linspace(0, 10, 256) * random.uniform(0.9, 1)
 
         # Sinal Analógico
         graficos[0].clear()
@@ -131,16 +144,16 @@ def gerar_grafico(i):
         )
 
         """""" """"""
-        # Substitua as funções funcao_exemplo_pulso_conformador
+        # Substitua as funções puls_conformador_periodo_completo
         # pela sua função correspondente
         # OBS: Todas as funções devem manter os mesmos padrões
         # de parâmetros
         """""" """"""
         # Dicionário de pulso conformador
         dicionario_pulso_conformador = {
-            "Triangular": funcao_exemplo_pulso_conformador,
-            "Retangular: Meio Período": funcao_exemplo_pulso_conformador,
-            "Retangular: Período Completo": funcao_exemplo_pulso_conformador,
+            "Triangular": pulso_conformador_triangular,
+            "Retangular: Meio Período": pulso_conformador_meio_periodo,
+            "Retangular: Período Completo": puls_conformador_periodo_completo,
         }
 
         # Busca chave referênte ao pulso selecionado no combobox
@@ -149,16 +162,15 @@ def gerar_grafico(i):
         )
 
         # Chama função correspondente a operação acima
-        sinal_pulso_conformador = sinal_pulso_conformador(intervalo)
+        sinal_pulso_conformador = sinal_pulso_conformador(config.TAXA_DE_SIMBOLO)
 
         # Sinal Pulso Conformador
-        graficos[3].plot(intervalo, sinal_pulso_conformador)
+        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO), sinal_pulso_conformador)
 
 
 def set_taxa_simbolo(event):
     if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        config.TAXA_DE_SIMBOLO = int(
-            input_taxa_simbolo.get().replace(",", "."))
+        config.TAXA_DE_SIMBOLO = int(input_taxa_simbolo.get().replace(",", "."))
         taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
@@ -198,8 +210,7 @@ taxa_simbolo_Frame = tk.LabelFrame(
 )
 
 # Definindo a posição da labelframe
-taxa_simbolo_Frame.place(in_=janela_principal,
-                         relx=0.87, rely=0.28, anchor=tk.CENTER)
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.28, anchor=tk.CENTER)
 
 
 taxa_simbolo_InfoLabel = tk.Label(
@@ -223,7 +234,8 @@ pulso_conformador_frame = tk.LabelFrame(
 
 # Definindo a posição para o pulso conformador
 pulso_conformador_frame.place(
-    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER)
+    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER
+)
 
 combo_box_pulso_conformador = ttk.Combobox(
     pulso_conformador_frame,
