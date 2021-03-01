@@ -34,3 +34,4 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+__pycache__

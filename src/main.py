@@ -8,7 +8,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from scipy import signal
-from .sinais.sinal_analogico import sinal_analogico
+from sinais.sinal_analogico import sinal_analogico
 
 matplotlib.use("TkAgg")
 
@@ -17,7 +17,6 @@ janela_principal = tk.Tk()
 janela_principal.iniciar = False
 minimo_tamanho_intervalo = 0
 maximo_tamanho_intervalo = 10
-digital = True
 
 numero_amostras = 500
 taxa_simbolo = 3
@@ -108,8 +107,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
-        sinal_analogico = sinal_analogico(intervalo)
-        graficos[0].plot(sinal_analogico, "c")
+        graficos[0].plot(sinal_analogico(intervalo), "c")
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
