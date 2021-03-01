@@ -11,8 +11,8 @@ from scipy import signal
 from scipy.fftpack import fft, fftshift
 
 import config
+from pulsos_conformadores import meio_periodo, periodo_completo, triangular
 from sinais import sinal_analogico
-from pulsos_conformadores import periodo_completo, meio_periodo, triangular
 
 matplotlib.use("TkAgg")
 
@@ -23,9 +23,9 @@ janela_principal = tk.Tk()
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
-janela_principal.geometry("980x600")
+janela_principal.geometry("1000x700")
 
-figura = Figure(figsize=(10, 7), dpi=80)
+figura = Figure(figsize=(7.8, 7), dpi=100)
 graficos = figura.subplots(4)
 
 # X/Y Sinal analogico
