@@ -72,8 +72,17 @@ def funcao_iniciar():
 
 # Função de exemplo, ao final ela será exlcuída
 # para dar lugar as pertinentes
-def funcao_exemplo_pulso_conformador(intervalo):
-    return np.sin(intervalo)
+def funcao_exemplo_pulso_conformador(taxa_amostragem):
+    pShaping = np.ones((1, taxa_amostragem), dtype=int)
+    # pShaping[0, meio:] = 0
+    return pShaping[0]
+
+
+def pulso_conformador_meio_periodo(taxa_amostragem):
+    meio = int(taxa_amostragem / 2)
+    pShaping = np.ones((1, taxa_amostragem), dtype=int)
+    pShaping[0, meio:] = 0
+    return pShaping[0]
 
 
 def gerar_grafico(i, eixo_x, eixo_y):
@@ -153,7 +162,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         # Dicionário de pulso conformador
         dicionario_pulso_conformador = {
             "Triangular": funcao_exemplo_pulso_conformador,
-            "Retangular: Meio Período": funcao_exemplo_pulso_conformador,
+            "Retangular: Meio Período": pulso_conformador_meio_periodo,
             "Retangular: Período Completo": funcao_exemplo_pulso_conformador,
         }
 
@@ -163,10 +172,10 @@ def gerar_grafico(i, eixo_x, eixo_y):
         )
 
         # Chama função correspondente a operação acima
-        sinal_pulso_conformador = sinal_pulso_conformador(intervalo)
+        sinal_pulso_conformador = sinal_pulso_conformador(taxa_simbolo)
 
         # Sinal Pulso Conformador
-        graficos[3].plot(intervalo, sinal_pulso_conformador)
+        graficos[3].plot(range(0, taxa_simbolo), sinal_pulso_conformador)
 
         # Movimento de tempo do gráfico
         maximo_tamanho_intervalo += 1
@@ -217,8 +226,7 @@ taxa_simbolo_Frame = tk.LabelFrame(
 )
 
 # Definindo a posição da labelframe
-taxa_simbolo_Frame.place(in_=janela_principal,
-                         relx=0.87, rely=0.28, anchor=tk.CENTER)
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.28, anchor=tk.CENTER)
 
 
 taxa_simbolo_InfoLabel = tk.Label(
@@ -242,7 +250,8 @@ pulso_conformador_frame = tk.LabelFrame(
 
 # Definindo a posição para o pulso conformador
 pulso_conformador_frame.place(
-    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER)
+    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER
+)
 
 combo_box_pulso_conformador = ttk.Combobox(
     pulso_conformador_frame,
