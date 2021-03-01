@@ -1,4 +1,9 @@
+
 NUMERO_AMOSTRAS = 500
 TAXA_DE_SIMBOLO = 5
 NUMERO_DE_SIMBOLO = NUMERO_AMOSTRAS / TAXA_DE_SIMBOLO
 INICIAR_ANIMACAO = False
+
+# ----------- Configuração do gráfico -------------
+MAXIMO_EIXO_Y = 2
+MINIMO_EIXO_Y = -2

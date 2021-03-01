@@ -23,36 +23,28 @@ janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
 janela_principal.geometry("980x600")
 
-f = Figure(figsize=(10, 7), dpi=80)
-graficos = f.subplots(4)
-eixo_x = [0]
-eixo_y = [0]
-
-# Graficos:
-graficos[0].plot(eixo_x, eixo_y)  # Sinal analogico
-graficos[1].plot(eixo_x, eixo_y)  # Sequencia de bits aleatoria
-graficos[2].plot(eixo_x, eixo_y)  # Sinal digital
-graficos[3].plot(eixo_x, eixo_y)  # Pulso conformador
+figura = Figure(figsize=(10, 7), dpi=80)
+graficos = figura.subplots(4)
 
 # X/Y Sinal analogico
 
 graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
-graficos[0].set_ylim(-2, 2)
+graficos[0].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
 
 # X/Y Sequencia de bits aleatorias
 graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
-graficos[1].set_ylim(-2, 2)
+graficos[1].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
 
 # X/Y Sinal digital referente a sequencia de bits
 graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
-graficos[2].set_ylim(-2, 2)
+graficos[2].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
 
 # X/Y Pulso conformador
 graficos[3].set_xlabel("Tempo", fontweight="bold")
 graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
-graficos[3].set_ylim(-2, 2)
+graficos[3].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
 
-canvas = FigureCanvasTkAgg(f, janela_principal)
+canvas = FigureCanvasTkAgg(figura, janela_principal)
 canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
@@ -71,7 +63,7 @@ def funcao_exemplo_pulso_conformador(intervalo):
     return np.sin(intervalo)
 
 
-def gerar_grafico(i, eixo_x, eixo_y):
+def gerar_grafico(i):
     global taxa_simbolo, numero_amostras, numero_simbolo
 
     if config.INICIAR_ANIMACAO:
@@ -179,9 +171,8 @@ def set_pulso_conformador(event):
 
 
 ani = animation.FuncAnimation(
-    f,
+    figura,
     gerar_grafico,
-    fargs=(eixo_x, eixo_y),
     interval=500,
 )
 
