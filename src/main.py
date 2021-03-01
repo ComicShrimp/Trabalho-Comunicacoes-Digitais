@@ -8,19 +8,14 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from scipy import signal
+
+import config
 from sinais.sinal_analogico import sinal_analogico
 
 matplotlib.use("TkAgg")
 
 
 janela_principal = tk.Tk()
-janela_principal.iniciar = False
-minimo_tamanho_intervalo = 0
-maximo_tamanho_intervalo = 10
-
-numero_amostras = 500
-taxa_simbolo = 3
-numero_simbolo = numero_amostras / taxa_simbolo
 
 
 janela_principal.title("Gerador de Sinais")
@@ -62,11 +57,11 @@ canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
 def funcao_iniciar():
-    if janela_principal.iniciar:
-        janela_principal.iniciar = False
+    if config.INICIAR_ANIMACAO:
+        config.INICIAR_ANIMACAO = False
         iniciar_butao["text"] = "Iniciar"
     else:
-        janela_principal.iniciar = True
+        config.INICIAR_ANIMACAO = True
         iniciar_butao["text"] = "Pausar"
 
 
@@ -77,12 +72,11 @@ def funcao_exemplo_pulso_conformador(intervalo):
 
 
 def gerar_grafico(i, eixo_x, eixo_y):
-    global maximo_tamanho_intervalo, minimo_tamanho_intervalo
     global taxa_simbolo, numero_amostras, numero_simbolo
 
-    if janela_principal.iniciar:
+    if config.INICIAR_ANIMACAO:
         intervalo = np.linspace(
-            minimo_tamanho_intervalo, maximo_tamanho_intervalo, 256
+            0, 10, 256
         ) * random.uniform(0.9, 1)
 
         # Sinal Analógico
@@ -107,7 +101,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
         graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
-        graficos[0].plot(sinal_analogico(numero_amostras), "c")
+        graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
@@ -122,14 +116,14 @@ def gerar_grafico(i, eixo_x, eixo_y):
         """ """ """
 
         # Sinal Sequência de Bits
-        numero_simbolo = numero_amostras / taxa_simbolo
+        config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
         sinal_senquencia_bits = 2 * (
-            np.random.randint(1, 3, size=int(numero_simbolo)) - 1.5
+            np.random.randint(1, 3, size=int(config.NUMERO_DE_SIMBOLO)) - 1.5
         )  # Função do Sinal de sequência de Bits
         sinal_senquencia_bits = (sinal_senquencia_bits + 1) / 2
 
         graficos[1].stem(
-            range(0, int(numero_simbolo)),
+            range(0, int(config.NUMERO_DE_SIMBOLO)),
             sinal_senquencia_bits,
             use_line_collection=True,
         )
@@ -168,15 +162,11 @@ def gerar_grafico(i, eixo_x, eixo_y):
         # Sinal Pulso Conformador
         graficos[3].plot(intervalo, sinal_pulso_conformador)
 
-        # Movimento de tempo do gráfico
-        maximo_tamanho_intervalo += 1
-        minimo_tamanho_intervalo += 1
-
 
 def set_taxa_simbolo(event):
-    global taxa_simbolo
     if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        taxa_simbolo = int(input_taxa_simbolo.get().replace(",", "."))
+        config.TAXA_DE_SIMBOLO = int(
+            input_taxa_simbolo.get().replace(",", "."))
         taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
@@ -223,7 +213,7 @@ taxa_simbolo_Frame.place(in_=janela_principal,
 
 taxa_simbolo_InfoLabel = tk.Label(
     taxa_simbolo_Frame,
-    text=str(taxa_simbolo),
+    text=str(config.TAXA_DE_SIMBOLO),
 )
 taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=tk.N)
 input_taxa_simbolo = tk.Entry(taxa_simbolo_Frame, width=12)
