@@ -22,9 +22,9 @@ janela_principal = tk.Tk()
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
-janela_principal.geometry("980x600")
+janela_principal.geometry("1000x700")
 
-figura = Figure(figsize=(10, 7), dpi=80)
+figura = Figure(figsize=(7.8, 7), dpi=100)
 graficos = figura.subplots(4)
 
 # X/Y Sinal analogico
@@ -75,7 +75,7 @@ def pulso_conformador_meio_periodo(taxa_amostragem):
 
 def pulso_conformador_triangular(taxa_amostragem):
     return signal.triang(taxa_amostragem)
-    #20 * np.log10(np.abs(fftshift(A / abs(A).max())))
+    # 20 * np.log10(np.abs(fftshift(A / abs(A).max())))
 
 
 def gerar_grafico(i):
