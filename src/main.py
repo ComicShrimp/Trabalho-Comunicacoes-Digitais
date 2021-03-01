@@ -1,19 +1,20 @@
-from tkinter import *
-from tkinter import messagebox
-import matplotlib
-import matplotlib.animation as animation
-from scipy import signal
-import numpy as np
 import random
+import tkinter as tk
 from tkinter import ttk
 
-matplotlib.use("TkAgg")
+import matplotlib
+import matplotlib.animation as animation
+import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from scipy import signal
+from .sinais.sinal_analogico import sinal_analogico
+
+matplotlib.use("TkAgg")
 
 
-janela_principal = Tk()
-iniciar = False
+janela_principal = tk.Tk()
+janela_principal.iniciar = False
 minimo_tamanho_intervalo = 0
 maximo_tamanho_intervalo = 10
 digital = True
@@ -58,16 +59,15 @@ graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 graficos[3].set_ylim(-2, 2)
 
 canvas = FigureCanvasTkAgg(f, janela_principal)
-grafico = canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
+canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
 def funcao_iniciar():
-    global iniciar
-    if iniciar:
-        iniciar = False
+    if janela_principal.iniciar:
+        janela_principal.iniciar = False
         iniciar_butao["text"] = "Iniciar"
     else:
-        iniciar = True
+        janela_principal.iniciar = True
         iniciar_butao["text"] = "Pausar"
 
 
@@ -78,11 +78,10 @@ def funcao_exemplo_pulso_conformador(intervalo):
 
 
 def gerar_grafico(i, eixo_x, eixo_y):
-    global iniciar
     global maximo_tamanho_intervalo, minimo_tamanho_intervalo
     global taxa_simbolo, numero_amostras, numero_simbolo
 
-    if iniciar:
+    if janela_principal.iniciar:
         intervalo = np.linspace(
             minimo_tamanho_intervalo, maximo_tamanho_intervalo, 256
         ) * random.uniform(0.9, 1)
@@ -109,8 +108,8 @@ def gerar_grafico(i, eixo_x, eixo_y):
         graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         # Sinal Analógico
-        sinal_analogico = np.sin(intervalo)
-        graficos[0].plot(intervalo, sinal_analogico, "c")
+        sinal_analogico = sinal_analogico(intervalo)
+        graficos[0].plot(sinal_analogico, "c")
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
@@ -182,9 +181,9 @@ def set_taxa_simbolo(event):
         taxa_simbolo = int(input_taxa_simbolo.get().replace(",", "."))
         taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
-        messagebox.showerror("Erro", "Taxa de símbolos inválida")
+        tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
-    input_taxa_simbolo.delete(0, END)
+    input_taxa_simbolo.delete(0, tk.END)
 
 
 def set_pulso_conformador(event):
@@ -199,7 +198,7 @@ ani = animation.FuncAnimation(
 )
 
 # Atribuindo os padrões do botão iniciar
-iniciar_butao = Button(
+iniciar_butao = tk.Button(
     janela_principal,
     width=20,
     height=3,
@@ -208,10 +207,10 @@ iniciar_butao = Button(
     command=funcao_iniciar,
 )
 # Definindo a posição do botão iniciar
-iniciar_butao.place(relx=0.87, rely=0.66, anchor=N)
+iniciar_butao.place(relx=0.87, rely=0.66, anchor=tk.N)
 
 # Atribuindo padrões para a labelframe da taxa de símbolos
-taxa_simbolo_Frame = LabelFrame(
+taxa_simbolo_Frame = tk.LabelFrame(
     janela_principal,
     text="Taxa de Símbolos",
     width=180,
@@ -220,21 +219,22 @@ taxa_simbolo_Frame = LabelFrame(
 )
 
 # Definindo a posição da labelframe
-taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.28, anchor=CENTER)
+taxa_simbolo_Frame.place(in_=janela_principal,
+                         relx=0.87, rely=0.28, anchor=tk.CENTER)
 
 
-taxa_simbolo_InfoLabel = Label(
+taxa_simbolo_InfoLabel = tk.Label(
     taxa_simbolo_Frame,
     text=str(taxa_simbolo),
 )
-taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=N)
-input_taxa_simbolo = Entry(taxa_simbolo_Frame, width=12)
-input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=N)
+taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=tk.N)
+input_taxa_simbolo = tk.Entry(taxa_simbolo_Frame, width=12)
+input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=tk.N)
 input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
 
 
 # Atribuindo padrões para o combobox do pulso conformador
-pulso_conformador_frame = LabelFrame(
+pulso_conformador_frame = tk.LabelFrame(
     janela_principal,
     text="Pulso Conformador",
     width=180,
@@ -243,7 +243,8 @@ pulso_conformador_frame = LabelFrame(
 )
 
 # Definindo a posição para o pulso conformador
-pulso_conformador_frame.place(in_=janela_principal, relx=0.87, rely=0.5, anchor=CENTER)
+pulso_conformador_frame.place(
+    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER)
 
 combo_box_pulso_conformador = ttk.Combobox(
     pulso_conformador_frame,
@@ -253,8 +254,8 @@ combo_box_pulso_conformador = ttk.Combobox(
         "Triangular",
     ],
 )
-combo_box_pulso_conformador.place(relx=0.5, rely=0.5, anchor=N)
+combo_box_pulso_conformador.place(relx=0.5, rely=0.5, anchor=tk.N)
 combo_box_pulso_conformador.bind("<<ComboboxSelected>>", set_pulso_conformador)
 combo_box_pulso_conformador.current(0)
 
-mainloop()
+tk.mainloop()
