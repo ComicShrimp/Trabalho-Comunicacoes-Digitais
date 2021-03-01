@@ -41,6 +41,18 @@ def funcao_iniciar():
         iniciar_butao["text"] = "Pausar"
 
 
+def mapeamento(pulso_conformador, sinal, numero_simbolos):
+    sinal_digital = []
+    for s in range(0, int(numero_simbolos)):
+        intervalo_auxiliar = sinal[s] * pulso_conformador
+        for k in range(0, len(intervalo_auxiliar)):
+            if intervalo_auxiliar[k] == 0:
+                intervalo_auxiliar[k] = -1
+            sinal_digital.append(intervalo_auxiliar[k])
+
+    return sinal_digital
+
+
 def limpar_graficos():
 
     # Sinal Analógico
@@ -73,9 +85,6 @@ def gerar_grafico(i):
 
         intervalo = np.linspace(0, 10, 256) * random.uniform(0.9, 1)
 
-        # Sinal Analógico
-        graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
-
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
         devemos passar a taxa de Símbolos recebida pela interface
@@ -88,21 +97,6 @@ def gerar_grafico(i):
         Substitua as devidas funções correspondentes em `signal.square(intervalo)`
         """ """ """
 
-        graficos[1].stem(
-            sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS,
-                                    config.TAXA_DE_SIMBOLO),
-            use_line_collection=True,
-        )
-
-        # Sinal Digital referente a Sequência de Bits
-        sinal_digital = signal.square(
-            intervalo
-        )  # Função do Sinal Digital referente a Sequência de Bits
-        graficos[2].plot(
-            sinal_digital,
-            "r",
-        )
-
         # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
             combo_box_pulso_conformador.get()
@@ -112,6 +106,26 @@ def gerar_grafico(i):
         sinal_pulso_conformador = sinal_pulso_conformador(
             config.TAXA_DE_SIMBOLO)
 
+        sinal_digital = mapeamento(
+            sinal_pulso_conformador, sinal_sequencia_de_bits(
+                config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO), config.NUMERO_DE_SIMBOLO
+        )
+
+        # Sinal Analógico
+        graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
+
+        # Função do Sinal de sequência de Bits
+        graficos[1].stem(
+            sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS,
+                                    config.TAXA_DE_SIMBOLO),
+            use_line_collection=True,
+        )
+
+        # Função do Sinal Digital referente a Sequência de Bits
+        graficos[2].plot(
+            sinal_digital,
+            "r",
+        )
         # Sinal Pulso Conformador
         graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO),
                          sinal_pulso_conformador)
@@ -119,7 +133,10 @@ def gerar_grafico(i):
 
 def set_taxa_simbolo(event):
     taxa_de_simbolo_digitada = int(input_taxa_simbolo.get().replace(",", "."))
-    if taxa_de_simbolo_digitada >= 0 and taxa_de_simbolo_digitada <= config.NUMERO_AMOSTRAS:
+    if (
+        taxa_de_simbolo_digitada >= 0
+        and taxa_de_simbolo_digitada <= config.NUMERO_AMOSTRAS
+    ):
         config.TAXA_DE_SIMBOLO = taxa_de_simbolo_digitada
         taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
     else:
@@ -135,7 +152,7 @@ def set_pulso_conformador(event):
 ani = animation.FuncAnimation(
     figura,
     gerar_grafico,
-    interval=500,
+    interval=1500,
 )
 
 # Atribuindo os padrões do botão iniciar
