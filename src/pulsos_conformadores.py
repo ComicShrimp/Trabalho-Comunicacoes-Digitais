@@ -17,3 +17,10 @@ def meio_periodo(taxa_amostragem: int):
 
 def triangular(taxa_amostragem: int):
     return signal.triang(taxa_amostragem)
+
+
+dicionario_pulso_conformador = {
+    "Triangular": triangular,
+    "Retangular: Meio Período": meio_periodo,
+    "Retangular: Período Completo": periodo_completo,
+}

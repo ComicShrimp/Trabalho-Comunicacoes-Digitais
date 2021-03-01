@@ -11,7 +11,7 @@ from scipy import signal
 from scipy.fftpack import fft, fftshift
 
 import config
-from pulsos_conformadores import meio_periodo, periodo_completo, triangular
+from pulsos_conformadores import dicionario_pulso_conformador
 from sinais import sinal_analogico
 
 matplotlib.use("TkAgg")
@@ -123,19 +123,6 @@ def gerar_grafico(i):
             "r",
         )
 
-        """""" """"""
-        # Substitua as funções puls_conformador_periodo_completo
-        # pela sua função correspondente
-        # OBS: Todas as funções devem manter os mesmos padrões
-        # de parâmetros
-        """""" """"""
-        # Dicionário de pulso conformador
-        dicionario_pulso_conformador = {
-            "Triangular": triangular,
-            "Retangular: Meio Período": meio_periodo,
-            "Retangular: Período Completo": periodo_completo,
-        }
-
         # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
             combo_box_pulso_conformador.get()
@@ -151,10 +138,10 @@ def gerar_grafico(i):
 
 
 def set_taxa_simbolo(event):
-    if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        config.TAXA_DE_SIMBOLO = int(
-            input_taxa_simbolo.get().replace(",", "."))
-        taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
+    taxa_de_simbolo_digitada = int(input_taxa_simbolo.get().replace(",", "."))
+    if taxa_de_simbolo_digitada >= 0:
+        config.TAXA_DE_SIMBOLO = taxa_de_simbolo_digitada
+        taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
