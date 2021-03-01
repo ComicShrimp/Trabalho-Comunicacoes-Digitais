@@ -84,9 +84,7 @@ def gerar_grafico(i, eixo_x, eixo_y):
     global taxa_simbolo, numero_amostras, numero_simbolo
 
     if config.INICIAR_ANIMACAO:
-        intervalo = np.linspace(
-            0, 10, 256
-        ) * random.uniform(0.9, 1)
+        intervalo = np.linspace(0, 10, 256) * random.uniform(0.9, 1)
 
         # Sinal Analógico
         graficos[0].clear()
@@ -166,16 +164,15 @@ def gerar_grafico(i, eixo_x, eixo_y):
         )
 
         # Chama função correspondente a operação acima
-        sinal_pulso_conformador = sinal_pulso_conformador(taxa_simbolo)
+        sinal_pulso_conformador = sinal_pulso_conformador(config.TAXA_DE_SIMBOLO)
 
         # Sinal Pulso Conformador
-        graficos[3].plot(range(0, taxa_simbolo), sinal_pulso_conformador)
+        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO), sinal_pulso_conformador)
 
 
 def set_taxa_simbolo(event):
     if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        config.TAXA_DE_SIMBOLO = int(
-            input_taxa_simbolo.get().replace(",", "."))
+        config.TAXA_DE_SIMBOLO = int(input_taxa_simbolo.get().replace(",", "."))
         taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
