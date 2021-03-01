@@ -11,7 +11,7 @@ from scipy import signal
 from scipy.fftpack import fft, fftshift
 
 import config
-from pulsos_conformadores import meio_periodo, periodo_completo, triangular
+from pulsos_conformadores import dicionario_pulso_conformador
 from sinais import sinal_analogico
 
 matplotlib.use("TkAgg")
@@ -27,24 +27,6 @@ janela_principal.geometry("1000x700")
 
 figura = Figure(figsize=(7.8, 7), dpi=100)
 graficos = figura.subplots(4)
-
-# X/Y Sinal analogico
-
-graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
-graficos[0].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
-
-# X/Y Sequencia de bits aleatorias
-graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
-graficos[1].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
-
-# X/Y Sinal digital referente a sequencia de bits
-graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
-graficos[2].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
-
-# X/Y Pulso conformador
-graficos[3].set_xlabel("Tempo", fontweight="bold")
-graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
-graficos[3].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
 
 canvas = FigureCanvasTkAgg(figura, janela_principal)
 canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
@@ -71,31 +53,37 @@ def mapeamento(pulso_conformador, sinal, numero_simbolos):
     return sinal_digital
 
 
+def limpar_graficos():
+
+    # Sinal Analógico
+    graficos[0].cla()
+    graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
+    graficos[0].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+
+    # Sinal Sequência de Bits
+    graficos[1].clear()
+    graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
+    graficos[1].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+
+    # Sinal Digital referente a Sequência de Bits
+    graficos[2].clear()
+    graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
+    graficos[2].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+
+    # Sinal Pulso Conformador
+    graficos[3].clear()
+    graficos[3].set_xlabel("Tempo", fontweight="bold")
+    graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
+    graficos[3].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+
+
 def gerar_grafico(i):
 
     if config.INICIAR_ANIMACAO:
+
+        limpar_graficos()
+
         intervalo = np.linspace(0, 10, 256) * random.uniform(0.9, 1)
-
-        # Sinal Analógico
-        graficos[0].clear()
-        graficos[0].set_ylim(-2, 2)
-        graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
-
-        # Sinal Sequência de Bits
-        graficos[1].clear()
-        graficos[1].set_ylim(-2, 2)
-        graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
-
-        # Sinal Digital referente a Sequência de Bits
-        graficos[2].clear()
-        graficos[2].set_ylim(-2, 2)
-        graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
-
-        # Sinal Pulso Conformador
-        graficos[3].clear()
-        graficos[3].set_ylim(-2, 2)
-        graficos[3].set_xlabel("Tempo", fontweight="bold")
-        graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
@@ -115,19 +103,6 @@ def gerar_grafico(i):
             np.random.randint(1, 3, size=int(config.NUMERO_DE_SIMBOLO)) - 1.5
         )
         sinal_senquencia_bits = (sinal_senquencia_bits + 1) / 2
-
-        """""" """"""
-        # Substitua as funções puls_conformador_periodo_completo
-        # pela sua função correspondente
-        # OBS: Todas as funções devem manter os mesmos padrões
-        # de parâmetros
-        """""" """"""
-        # Dicionário de pulso conformador
-        dicionario_pulso_conformador = {
-            "Triangular": triangular,
-            "Retangular: Meio Período": meio_periodo,
-            "Retangular: Período Completo": periodo_completo,
-        }
 
         # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
@@ -162,9 +137,13 @@ def gerar_grafico(i):
 
 
 def set_taxa_simbolo(event):
-    if int(input_taxa_simbolo.get().replace(",", ".")) >= 0:
-        config.TAXA_DE_SIMBOLO = int(input_taxa_simbolo.get().replace(",", "."))
-        taxa_simbolo_InfoLabel["text"] = input_taxa_simbolo.get()
+    taxa_de_simbolo_digitada = int(input_taxa_simbolo.get().replace(",", "."))
+    if (
+        taxa_de_simbolo_digitada >= 0
+        and taxa_de_simbolo_digitada <= config.NUMERO_AMOSTRAS
+    ):
+        config.TAXA_DE_SIMBOLO = taxa_de_simbolo_digitada
+        taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
