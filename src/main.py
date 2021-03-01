@@ -8,6 +8,7 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from scipy import signal
+from scipy.fftpack import fft, fftshift
 
 import config
 from sinais.sinal_analogico import sinal_analogico
@@ -67,7 +68,7 @@ def funcao_iniciar():
 
 # Função de exemplo, ao final ela será exlcuída
 # para dar lugar as pertinentes
-def funcao_exemplo_pulso_conformador(taxa_amostragem):
+def puls_conformador_periodo_completo(taxa_amostragem):
     pShaping = np.ones((1, taxa_amostragem), dtype=int)
     # pShaping[0, meio:] = 0
     return pShaping[0]
@@ -78,6 +79,11 @@ def pulso_conformador_meio_periodo(taxa_amostragem):
     pShaping = np.ones((1, taxa_amostragem), dtype=int)
     pShaping[0, meio:] = 0
     return pShaping[0]
+
+
+def pulso_conformador_triangular(taxa_amostragem):
+    return signal.triang(taxa_amostragem)
+    #20 * np.log10(np.abs(fftshift(A / abs(A).max())))
 
 
 def gerar_grafico(i, eixo_x, eixo_y):
@@ -146,16 +152,16 @@ def gerar_grafico(i, eixo_x, eixo_y):
         )
 
         """""" """"""
-        # Substitua as funções funcao_exemplo_pulso_conformador
+        # Substitua as funções puls_conformador_periodo_completo
         # pela sua função correspondente
         # OBS: Todas as funções devem manter os mesmos padrões
         # de parâmetros
         """""" """"""
         # Dicionário de pulso conformador
         dicionario_pulso_conformador = {
-            "Triangular": funcao_exemplo_pulso_conformador,
+            "Triangular": pulso_conformador_triangular,
             "Retangular: Meio Período": pulso_conformador_meio_periodo,
-            "Retangular: Período Completo": funcao_exemplo_pulso_conformador,
+            "Retangular: Período Completo": puls_conformador_periodo_completo,
         }
 
         # Busca chave referênte ao pulso selecionado no combobox
