@@ -12,7 +12,7 @@ from scipy.fftpack import fft, fftshift
 
 import config
 from pulsos_conformadores import dicionario_pulso_conformador
-from sinais import sinal_analogico
+from sinais import sinal_analogico, sinal_sequencia_de_bits
 
 matplotlib.use("TkAgg")
 
@@ -98,23 +98,18 @@ def gerar_grafico(i):
         Substitua as devidas funções correspondentes em `signal.square(intervalo)`
         """ """ """
 
-        # Sinal Sequência de Bits
-        config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
-        sinal_senquencia_bits = 2 * (
-            np.random.randint(1, 3, size=int(config.NUMERO_DE_SIMBOLO)) - 1.5
-        )
-        sinal_senquencia_bits = (sinal_senquencia_bits + 1) / 2
-
         # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
             combo_box_pulso_conformador.get()
         )
 
         # Chama função correspondente a operação acima
-        sinal_pulso_conformador = sinal_pulso_conformador(config.TAXA_DE_SIMBOLO)
+        sinal_pulso_conformador = sinal_pulso_conformador(
+            config.TAXA_DE_SIMBOLO)
 
         sinal_digital = mapeamento(
-            sinal_pulso_conformador, sinal_senquencia_bits, config.NUMERO_DE_SIMBOLO
+            sinal_pulso_conformador, sinal_sequencia_de_bits(
+                config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO), config.NUMERO_DE_SIMBOLO
         )
 
         # Sinal Analógico
@@ -122,19 +117,19 @@ def gerar_grafico(i):
 
         # Função do Sinal de sequência de Bits
         graficos[1].stem(
-            range(0, int(config.NUMERO_DE_SIMBOLO)),
-            sinal_senquencia_bits,
+            sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS,
+                                    config.TAXA_DE_SIMBOLO),
             use_line_collection=True,
         )
 
         # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
-            range(0, int(config.NUMERO_AMOSTRAS)),
             sinal_digital,
             "r",
         )
         # Sinal Pulso Conformador
-        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO), sinal_pulso_conformador)
+        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO),
+                         sinal_pulso_conformador)
 
 
 def set_taxa_simbolo(event):
@@ -183,7 +178,8 @@ taxa_simbolo_Frame = tk.LabelFrame(
 )
 
 # Definindo a posição da labelframe
-taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87, rely=0.28, anchor=tk.CENTER)
+taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87,
+                         rely=0.28, anchor=tk.CENTER)
 
 
 taxa_simbolo_InfoLabel = tk.Label(
