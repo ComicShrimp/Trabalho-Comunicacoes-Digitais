@@ -12,7 +12,7 @@ from scipy.fftpack import fft, fftshift
 
 import config
 from pulsos_conformadores import dicionario_pulso_conformador
-from sinais import sinal_analogico
+from sinais import sinal_analogico, sinal_sequencia_de_bits
 
 matplotlib.use("TkAgg")
 
@@ -88,16 +88,9 @@ def gerar_grafico(i):
         Substitua as devidas funções correspondentes em `signal.square(intervalo)`
         """ """ """
 
-        # Sinal Sequência de Bits
-        config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
-        sinal_senquencia_bits = 2 * (
-            np.random.randint(1, 3, size=int(config.NUMERO_DE_SIMBOLO)) - 1.5
-        )  # Função do Sinal de sequência de Bits
-        sinal_senquencia_bits = (sinal_senquencia_bits + 1) / 2
-
         graficos[1].stem(
-            range(0, int(config.NUMERO_DE_SIMBOLO)),
-            sinal_senquencia_bits,
+            sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS,
+                                    config.TAXA_DE_SIMBOLO),
             use_line_collection=True,
         )
 
@@ -106,7 +99,6 @@ def gerar_grafico(i):
             intervalo
         )  # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
-            intervalo,
             sinal_digital,
             "r",
         )
