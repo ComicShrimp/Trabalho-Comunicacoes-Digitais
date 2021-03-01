@@ -44,11 +44,12 @@ def funcao_iniciar():
 def mapeamento(pulso_conformador, sinal, numero_simbolos):
     sinal_digital = []
     for s in range(0, int(numero_simbolos)):
-        intervalo_auxiliar = sinal[s] * pulso_conformador
-        for k in range(0, len(intervalo_auxiliar)):
-            if intervalo_auxiliar[k] == 0:
-                intervalo_auxiliar[k] = -1
-            sinal_digital.append(intervalo_auxiliar[k])
+        if sinal[s] == 0:
+            sinal[s] = -1
+    
+        sinal_auxiliar = sinal[s] * pulso_conformador
+        for k in range(0, len(sinal_auxiliar)):
+            sinal_digital.append(sinal_auxiliar[k])
 
     return sinal_digital
 
