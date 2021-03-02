@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "trabalho-comunicacoes-digitais"
+version = "0.1.0"
+description = ""
+authors = ["Victor Hugo Viana Santos <torugosis@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+scipy = "^1.6.1"
+matplotlib = "^3.3.4"
+numpy = "^1.20.1"
+autopep8 = "^1.5.5"
+conventional-commit = "^0.4.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
