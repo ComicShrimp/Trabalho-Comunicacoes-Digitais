@@ -44,12 +44,11 @@ def funcao_iniciar():
 def mapeamento(pulso_conformador, sinal, numero_simbolos):
     sinal_digital = []
     for s in range(0, int(numero_simbolos)):
-        if sinal[s] == 0:
-            sinal[s] = -1
-    
-        sinal_auxiliar = sinal[s] * pulso_conformador
-        for k in range(0, len(sinal_auxiliar)):
-            sinal_digital.append(sinal_auxiliar[k])
+        intervalo_auxiliar = sinal[s] * pulso_conformador
+        for k in range(0, len(intervalo_auxiliar)):
+            if intervalo_auxiliar[k] == 0:
+                intervalo_auxiliar[k] = -1
+            sinal_digital.append(intervalo_auxiliar[k])
 
     return sinal_digital
 
@@ -60,22 +59,26 @@ def limpar_graficos():
     graficos[0].cla()
     graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
     graficos[0].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[0].grid(True)
 
     # Sinal Sequência de Bits
     graficos[1].clear()
     graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
     graficos[1].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[1].grid(True)
 
     # Sinal Digital referente a Sequência de Bits
     graficos[2].clear()
     graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
     graficos[2].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[2].grid(True)
 
     # Sinal Pulso Conformador
     graficos[3].clear()
     graficos[3].set_xlabel("Tempo", fontweight="bold")
     graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
     graficos[3].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[3].grid(True)
 
 
 def gerar_grafico(i):
@@ -139,6 +142,7 @@ def set_taxa_simbolo(event):
         and taxa_de_simbolo_digitada <= config.NUMERO_AMOSTRAS
     ):
         config.TAXA_DE_SIMBOLO = taxa_de_simbolo_digitada
+        config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
         taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
