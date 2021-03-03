@@ -136,11 +136,25 @@ def set_taxa_simbolo(event):
         config.TAXA_DE_SIMBOLO = taxa_de_simbolo_digitada
         config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
         taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
+        numero_simbolo_InfoLabel["text"] = str(config.NUMERO_DE_SIMBOLO)
     else:
         tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
 
     input_taxa_simbolo.delete(0, tk.END)
 
+def set_numero_amostras(event):
+    numero_amostras_digitada = int(numero_amostras_entrada.get().replace(",", "."))
+    if (
+        numero_amostras_digitada >= 0 and numero_amostras_digitada >= config.TAXA_DE_SIMBOLO
+    ):
+        config.NUMERO_AMOSTRAS = numero_amostras_digitada
+        config.NUMERO_DE_SIMBOLO = config.NUMERO_AMOSTRAS / config.TAXA_DE_SIMBOLO
+        numero_amostras_infoframe["text"] = numero_amostras_digitada
+        numero_simbolo_InfoLabel["text"] = str(config.NUMERO_DE_SIMBOLO)
+    else:
+        tk.messagebox.showerror("Erro", "Número de amostras inválida")
+
+    numero_amostras_entrada.delete(0, tk.END)
 
 def set_pulso_conformador(event):
     print(combo_box_pulso_conformador.get())
@@ -152,17 +166,29 @@ ani = animation.FuncAnimation(
     interval=1500,
 )
 
-# Atribuindo os padrões do botão iniciar
-iniciar_butao = tk.Button(
+# Atribuindo padrões para a labelframe de número de amostras
+numero_amostras_frame = tk.LabelFrame(
     janela_principal,
-    width=20,
-    height=3,
-    bg="#d3d3d3",
-    text="Iniciar",
-    command=funcao_iniciar,
+    text="Número de Amostras",
+    width=180,
+    height=75,
+    borderwidth=0,
 )
-# Definindo a posição do botão iniciar
-iniciar_butao.place(relx=0.87, rely=0.66, anchor=tk.N)
+
+# Definindo a posição da labelframe
+numero_amostras_frame.place(in_=janela_principal, relx=0.87,
+                         rely=0.2, anchor=tk.CENTER)
+
+
+numero_amostras_infoframe = tk.Label(
+    numero_amostras_frame,
+    text=str(config.NUMERO_AMOSTRAS),
+)
+numero_amostras_infoframe.place(relx=0.5, rely=0.15, anchor=tk.N)
+numero_amostras_entrada = tk.Entry(numero_amostras_frame, width=12)
+numero_amostras_entrada.place(relx=0.5, rely=0.55, anchor=tk.N)
+numero_amostras_entrada.bind("<Return>", set_numero_amostras)
+
 
 # Atribuindo padrões para a labelframe da taxa de símbolos
 taxa_simbolo_Frame = tk.LabelFrame(
@@ -175,7 +201,7 @@ taxa_simbolo_Frame = tk.LabelFrame(
 
 # Definindo a posição da labelframe
 taxa_simbolo_Frame.place(in_=janela_principal, relx=0.87,
-                         rely=0.28, anchor=tk.CENTER)
+                         rely=0.35, anchor=tk.CENTER)
 
 
 taxa_simbolo_InfoLabel = tk.Label(
@@ -186,6 +212,27 @@ taxa_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=tk.N)
 input_taxa_simbolo = tk.Entry(taxa_simbolo_Frame, width=12)
 input_taxa_simbolo.place(relx=0.5, rely=0.55, anchor=tk.N)
 input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
+
+
+# Atribuindo padrões para a labelframe do Número de Simbolos
+numero_simbolo_Frame = tk.LabelFrame(
+    janela_principal,
+    text="Número de Símbolos",
+    width=180,
+    height=75,
+    borderwidth=0,
+)
+
+# Definindo a posição da labelframe
+numero_simbolo_Frame.place(in_=janela_principal, relx=0.87,
+                         rely=0.5, anchor=tk.CENTER)
+
+
+numero_simbolo_InfoLabel = tk.Label(
+    numero_simbolo_Frame,
+    text=str(config.NUMERO_DE_SIMBOLO),
+)
+numero_simbolo_InfoLabel.place(relx=0.5, rely=0.15, anchor=tk.N)
 
 
 # Atribuindo padrões para o combobox do pulso conformador
@@ -199,7 +246,7 @@ pulso_conformador_frame = tk.LabelFrame(
 
 # Definindo a posição para o pulso conformador
 pulso_conformador_frame.place(
-    in_=janela_principal, relx=0.87, rely=0.5, anchor=tk.CENTER
+    in_=janela_principal, relx=0.87, rely=0.67, anchor=tk.CENTER
 )
 
 combo_box_pulso_conformador = ttk.Combobox(
@@ -213,5 +260,17 @@ combo_box_pulso_conformador = ttk.Combobox(
 combo_box_pulso_conformador.place(relx=0.5, rely=0.5, anchor=tk.N)
 combo_box_pulso_conformador.bind("<<ComboboxSelected>>", set_pulso_conformador)
 combo_box_pulso_conformador.current(0)
+
+# Atribuindo os padrões do botão iniciar
+iniciar_butao = tk.Button(
+    janela_principal,
+    width=20,
+    height=3,
+    bg="#d3d3d3",
+    text="Iniciar",
+    command=funcao_iniciar,
+)
+# Definindo a posição do botão iniciar
+iniciar_butao.place(relx=0.87, rely=0.8, anchor=tk.N)
 
 tk.mainloop()
