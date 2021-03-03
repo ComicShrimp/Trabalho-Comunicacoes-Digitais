@@ -8,3 +8,8 @@ INICIAR_ANIMACAO = False
 # ----------- Configuração do gráfico -------------
 MAXIMO_EIXO_Y = 2
 MINIMO_EIXO_Y = -2
+
+
+# ------------ Mapeamento de bits -----------------
+VALOR_DE_BITS_PARA_UM = 1
+VALOR_DE_BITS_PARA_ZERO = -1
