@@ -20,15 +20,16 @@ matplotlib.use("TkAgg")
 
 janela_principal = tk.Tk()
 
+DPI = janela_principal.winfo_fpixels("1i")
 
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
 # janela_principal.geometry("1000x700")
 janela_principal.attributes("-zoomed", True)
-tamanho_largura = janela_principal.winfo_screenwidth() * 0.0085
-tamanho_altura = janela_principal.winfo_screenheight() * 0.0085
-figura = Figure(figsize=(tamanho_largura, tamanho_altura), dpi=100)
+largura_grafico = janela_principal.winfo_screenwidth() * 0.85
+altura_grafico = janela_principal.winfo_screenheight() * 0.85
+figura = Figure(figsize=(largura_grafico / DPI, altura_grafico / DPI), dpi=DPI)
 graficos = figura.subplots(4)
 
 canvas = FigureCanvasTkAgg(figura, janela_principal)
