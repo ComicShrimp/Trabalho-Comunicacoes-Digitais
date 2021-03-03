@@ -12,7 +12,7 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
   - Ubuntu: `sudo apt-get install python3-tk`
 # Executar arquivo
 
-## 1. Crie um shell com pipenv
+## 1. Crie um shell com poetry
 
 - `poetry shell`
 
