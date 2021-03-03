@@ -18,3 +18,7 @@ def sinal_sequencia_de_bits(numero_amostras: int, taxa_de_simbolo: int):
         np.random.randint(1, 3, size=int(numero_de_simbolo)) - 1.5
     )  # Função do Sinal de sequência de Bits
     return (sinal_senquencia_bits + 1) / 2
+
+
+def sinal_digital(pulso_conformador, sequencia_de_bits):
+    return sequencia_de_bits

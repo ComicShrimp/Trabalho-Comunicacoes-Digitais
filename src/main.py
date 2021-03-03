@@ -12,7 +12,7 @@ from scipy.fftpack import fft, fftshift
 
 import config
 from pulsos_conformadores import dicionario_pulso_conformador
-from sinais import sinal_analogico, sinal_sequencia_de_bits
+from sinais import sinal_analogico, sinal_sequencia_de_bits, sinal_digital
 
 matplotlib.use("TkAgg")
 
@@ -41,17 +41,14 @@ def funcao_iniciar():
         iniciar_butao["text"] = "Pausar"
 
 
-def mapeamento(pulso_conformador, sinal, numero_simbolos):
-    sinal_digital = []
+def mapeamento_de_bits(senquencia_bits, valor_bit_true: int, valor_bit_false: int, numero_simbolos):
     for s in range(0, int(numero_simbolos)):
-        if sinal[s] == 0:
-            sinal[s] = -1
-    
-        sinal_auxiliar = sinal[s] * pulso_conformador
-        for k in range(0, len(sinal_auxiliar)):
-            sinal_digital.append(sinal_auxiliar[k])
+        if senquencia_bits[s] == 1:
+            senquencia_bits[s] = valor_bit_true
+        elif senquencia_bits[s] == 0:
+            senquencia_bits[s] = valor_bit_false
 
-    return sinal_digital
+    return senquencia_bits
 
 
 def limpar_graficos():
@@ -111,11 +108,6 @@ def gerar_grafico(i):
         sinal_pulso_conformador = sinal_pulso_conformador(
             config.TAXA_DE_SIMBOLO)
 
-        sinal_digital = mapeamento(
-            sinal_pulso_conformador, sinal_sequencia_de_bits(
-                config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO), config.NUMERO_DE_SIMBOLO
-        )
-
         # Sinal Analógico
         graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
 
@@ -128,7 +120,8 @@ def gerar_grafico(i):
 
         # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
-            sinal_digital,
+            sinal_digital(sinal_pulso_conformador, mapeamento_de_bits(
+                sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO), 1, -1, config.NUMERO_DE_SIMBOLO)),
             "r",
         )
         # Sinal Pulso Conformador
