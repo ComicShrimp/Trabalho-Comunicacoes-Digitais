@@ -37,9 +37,12 @@ def funcao_iniciar():
     if config.INICIAR_ANIMACAO:
         config.INICIAR_ANIMACAO = False
         iniciar_butao["text"] = "Iniciar"
+        iniciar_butao["bg"] = "#008000"
+
     else:
         config.INICIAR_ANIMACAO = True
         iniciar_butao["text"] = "Pausar"
+        iniciar_butao["bg"] = "#FF0000"
 
 
 def define_janela_grafico_digital(valor_bit_para_um: int, valor_bit_para_zero: int):
@@ -314,7 +317,7 @@ mapeamento_frame = tk.LabelFrame(
 )
 
 # Definindo a posição da labelframe
-mapeamento_frame.place(in_=janela_principal, relx=0.87, rely=0.72, anchor=tk.CENTER)
+mapeamento_frame.place(in_=janela_principal, relx=0.87, rely=0.715, anchor=tk.CENTER)
 
 
 mapeamento_um_infoframe = tk.Label(
@@ -338,13 +341,15 @@ mapeamento_zero_entrada.bind("<Return>", set_mapeamento_zero)
 # Atribuindo os padrões do botão iniciar
 iniciar_butao = tk.Button(
     janela_principal,
-    width=20,
-    height=3,
-    bg="#d3d3d3",
+    width=6,
+    height=1,
+    font=14,
+    bg="#008000",
+    fg="#ffffff",
     text="Iniciar",
     command=funcao_iniciar,
 )
 # Definindo a posição do botão iniciar
-iniciar_butao.place(relx=0.87, rely=0.85, anchor=tk.N)
+iniciar_butao.place(relx=0.918, rely=0.835, anchor=tk.N)
 
 tk.mainloop()
