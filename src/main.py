@@ -14,6 +14,7 @@ import config
 from pulsos_conformadores import dicionario_pulso_conformador
 from sinais import sinal_analogico, sinal_sequencia_de_bits, sinal_digital
 from math import ceil
+from platform import system
 
 matplotlib.use("TkAgg")
 
@@ -25,10 +26,14 @@ DPI = janela_principal.winfo_fpixels("1i")
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
-# janela_principal.geometry("1000x700")
-janela_principal.attributes("-zoomed", True)
-largura_grafico = janela_principal.winfo_screenwidth() * 0.85
-altura_grafico = janela_principal.winfo_screenheight() * 0.85
+
+largura_janela = janela_principal.winfo_screenwidth()
+altura_janela = janela_principal.winfo_screenheight()
+
+janela_principal.geometry("%dx%d+0+0" % (largura_janela, altura_janela))
+
+largura_grafico = largura_janela * 0.85
+altura_grafico = altura_janela * 0.85
 figura = Figure(figsize=(largura_grafico / DPI, altura_grafico / DPI), dpi=DPI)
 graficos = figura.subplots(4)
 
