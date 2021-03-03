@@ -111,17 +111,19 @@ def gerar_grafico(i):
         # Sinal Analógico
         graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
 
+        sequencia_de_bits = sinal_sequencia_de_bits(
+            config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO)
+
         # Função do Sinal de sequência de Bits
         graficos[1].stem(
-            sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS,
-                                    config.TAXA_DE_SIMBOLO),
+            sequencia_de_bits,
             use_line_collection=True,
         )
 
         # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
             sinal_digital(sinal_pulso_conformador, mapeamento_de_bits(
-                sinal_sequencia_de_bits(config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO), 1, -1, config.NUMERO_DE_SIMBOLO)),
+                sequencia_de_bits, 1, -1, config.NUMERO_DE_SIMBOLO), config.NUMERO_DE_SIMBOLO),
             "r",
         )
         # Sinal Pulso Conformador
