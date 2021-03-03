@@ -23,9 +23,11 @@ janela_principal = tk.Tk()
 janela_principal.title("Gerador de Sinais")
 janela_principal.resizable(True, True)
 janela_principal.config(bg="white")
-janela_principal.geometry("1000x700")
-
-figura = Figure(figsize=(7.8, 7), dpi=100)
+# janela_principal.geometry("1000x700")
+janela_principal.attributes("-zoomed", True)
+tamanho_largura = janela_principal.winfo_screenwidth() * 0.0085
+tamanho_altura = janela_principal.winfo_screenheight() * 0.0085
+figura = Figure(figsize=(tamanho_largura, tamanho_altura), dpi=100)
 graficos = figura.subplots(4)
 
 canvas = FigureCanvasTkAgg(figura, janela_principal)
@@ -336,6 +338,6 @@ iniciar_butao = tk.Button(
     command=funcao_iniciar,
 )
 # Definindo a posição do botão iniciar
-iniciar_butao.place(relx=0.918, rely=0.835, anchor=tk.N)
+iniciar_butao.place(relx=0.87, rely=0.835, anchor=tk.N)
 
 tk.mainloop()
