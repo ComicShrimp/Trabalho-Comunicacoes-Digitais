@@ -13,6 +13,7 @@ from scipy.fftpack import fft, fftshift
 import config
 from pulsos_conformadores import dicionario_pulso_conformador
 from sinais import sinal_analogico, sinal_sequencia_de_bits, sinal_digital
+from math import ceil
 
 matplotlib.use("TkAgg")
 
@@ -46,9 +47,20 @@ def funcao_iniciar():
         iniciar_butao["bg"] = "#FF0000"
 
 
+def define_janela_grafico_digital(valor_bit_para_um: int, valor_bit_para_zero: int):
+
+    if abs(valor_bit_para_um) > abs(valor_bit_para_zero):
+        config.MAXIMO_EIXO_DIGITAL_Y = ceil(abs(valor_bit_para_um) * 1.2)
+        config.MINIMO_EIXO_DIGITAL_Y = -config.MAXIMO_EIXO_DIGITAL_Y
+    else:
+        config.MAXIMO_EIXO_DIGITAL_Y = ceil(abs(valor_bit_para_zero) * 1.2)
+        config.MINIMO_EIXO_DIGITAL_Y = -config.MAXIMO_EIXO_DIGITAL_Y
+
+
 def mapeamento_de_bits(
     senquencia_bits, valor_bit_para_um: int, valor_bit_para_zero: int, numero_simbolos
 ):
+
     for s in range(0, int(numero_simbolos)):
         if senquencia_bits[s] == 1:
             senquencia_bits[s] = valor_bit_para_um
@@ -75,7 +87,7 @@ def limpar_graficos():
     # Sinal Digital referente a Sequência de Bits
     graficos[2].clear()
     graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
-    graficos[2].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[2].set_ylim(config.MINIMO_EIXO_DIGITAL_Y, config.MAXIMO_EIXO_DIGITAL_Y)
     graficos[2].grid(True)
 
     # Sinal Pulso Conformador
@@ -90,9 +102,11 @@ def gerar_grafico(i):
 
     if config.INICIAR_ANIMACAO:
 
-        limpar_graficos()
+        define_janela_grafico_digital(
+            config.VALOR_DE_BITS_PARA_UM, config.VALOR_DE_BITS_PARA_ZERO
+        )
 
-        intervalo = np.linspace(0, 10, 256) * random.uniform(0.9, 1)
+        limpar_graficos()
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente

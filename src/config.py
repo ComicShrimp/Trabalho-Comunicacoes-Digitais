@@ -9,6 +9,8 @@ INICIAR_ANIMACAO = False
 MAXIMO_EIXO_Y = 2
 MINIMO_EIXO_Y = -2
 
+MAXIMO_EIXO_DIGITAL_Y = MAXIMO_EIXO_Y
+MINIMO_EIXO_DIGITAL_Y = MINIMO_EIXO_Y
 
 # ------------ Mapeamento de bits -----------------
 VALOR_DE_BITS_PARA_UM = 1
