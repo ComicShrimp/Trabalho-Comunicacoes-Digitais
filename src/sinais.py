@@ -23,7 +23,6 @@ def sinal_sequencia_de_bits(numero_amostras: int, taxa_de_simbolo: int):
 def sinal_digital(pulso_conformador, sequencia_de_bits, numero_simbolos):
     sinal_digital = []
     for s in range(0, int(numero_simbolos)):
-
         sinal_auxiliar = sequencia_de_bits[s] * pulso_conformador
         for k in range(0, len(sinal_auxiliar)):
             sinal_digital.append(sinal_auxiliar[k])

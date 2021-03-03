@@ -41,12 +41,12 @@ def funcao_iniciar():
         iniciar_butao["text"] = "Pausar"
 
 
-def mapeamento_de_bits(senquencia_bits, valor_bit_true: int, valor_bit_false: int, numero_simbolos):
+def mapeamento_de_bits(senquencia_bits, valor_bit_para_um: int, valor_bit_para_zero: int, numero_simbolos):
     for s in range(0, int(numero_simbolos)):
         if senquencia_bits[s] == 1:
-            senquencia_bits[s] = valor_bit_true
+            senquencia_bits[s] = valor_bit_para_um
         elif senquencia_bits[s] == 0:
-            senquencia_bits[s] = valor_bit_false
+            senquencia_bits[s] = valor_bit_para_zero
 
     return senquencia_bits
 
@@ -94,10 +94,6 @@ def gerar_grafico(i):
 
         Obs: O valor fornecido pela interface está armazenado na variável `taxa_simbolo`
         """ """"""
-
-        """""" """
-        Substitua as devidas funções correspondentes em `signal.square(intervalo)`
-        """ """ """
 
         # Busca chave referênte ao pulso selecionado no combobox
         sinal_pulso_conformador = dicionario_pulso_conformador.get(
