@@ -5,20 +5,20 @@ Repositório Trabalho Comunicações Digitais sobre a criação de um gráfico a
 
 - Python 3.^
 - Pip
-- Pipenv
-  - Linux: `sudo pip install pipenv` ou `sudo pip3 install pipenv`
+- Poetry
+  - [Instalação](https://python-poetry.org/docs/#installation)
 - python3-tk
   - Arch: `sudo pacman -S tk`
   - Ubuntu: `sudo apt-get install python3-tk`
 # Executar arquivo
 
-## 1. Crie um shell com pipenv
+## 1. Crie um shell com poetry
 
-- `pipenv shell`
+- `poetry shell`
 
 ## 2. Instale as bibliotecas
 
-- `pipenv install`
+- `poetry install`
 
 
 ## Observações:
