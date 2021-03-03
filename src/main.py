@@ -41,7 +41,9 @@ def funcao_iniciar():
         iniciar_butao["text"] = "Pausar"
 
 
-def mapeamento_de_bits(senquencia_bits, valor_bit_para_um: int, valor_bit_para_zero: int, numero_simbolos):
+def mapeamento_de_bits(
+    senquencia_bits, valor_bit_para_um: int, valor_bit_para_zero: int, numero_simbolos
+):
     for s in range(0, int(numero_simbolos)):
         if senquencia_bits[s] == 1:
             senquencia_bits[s] = valor_bit_para_um
@@ -101,14 +103,14 @@ def gerar_grafico(i):
         )
 
         # Chama função correspondente a operação acima
-        sinal_pulso_conformador = sinal_pulso_conformador(
-            config.TAXA_DE_SIMBOLO)
+        sinal_pulso_conformador = sinal_pulso_conformador(config.TAXA_DE_SIMBOLO)
 
         # Sinal Analógico
         graficos[0].plot(sinal_analogico(config.NUMERO_AMOSTRAS), "c")
 
         sequencia_de_bits = sinal_sequencia_de_bits(
-            config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO)
+            config.NUMERO_AMOSTRAS, config.TAXA_DE_SIMBOLO
+        )
 
         # Função do Sinal de sequência de Bits
         graficos[1].stem(
@@ -118,13 +120,15 @@ def gerar_grafico(i):
 
         # Função do Sinal Digital referente a Sequência de Bits
         graficos[2].plot(
-            sinal_digital(sinal_pulso_conformador, mapeamento_de_bits(
-                sequencia_de_bits, 1, -1, config.NUMERO_DE_SIMBOLO), config.NUMERO_DE_SIMBOLO),
+            sinal_digital(
+                sinal_pulso_conformador,
+                mapeamento_de_bits(sequencia_de_bits, 1, -1, config.NUMERO_DE_SIMBOLO),
+                config.NUMERO_DE_SIMBOLO,
+            ),
             "r",
         )
         # Sinal Pulso Conformador
-        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO),
-                         sinal_pulso_conformador)
+        graficos[3].plot(range(0, config.TAXA_DE_SIMBOLO), sinal_pulso_conformador)
 
 
 def set_taxa_simbolo(event):
