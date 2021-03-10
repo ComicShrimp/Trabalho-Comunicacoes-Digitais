@@ -25,11 +25,11 @@ Padronização nas mensagens de commit para facilitar o entendimento das altera�
 
 Documentação do Python para consultas, neste [Link](https://www.python.org/dev/peps/pep-0008/#naming-conventions)
 
-Classes -> Camel Case - Exemplo: `class MinhaClasse():`
-Funções -> snake_case - Exemplo: `def minha_funcao():`
-Variáveis -> snake_case - Exemplo: `nome_completo = "Seu nome"`
-Constantes -> Maiúsculo - Exemplo: `NUMERO_MAXIMO = 5`
-
+Classes -> Camel Case - Exemplo: `class MinhaClasse():`  
+Funções -> snake_case - Exemplo: `def minha_funcao():`  
+Variáveis -> snake_case - Exemplo: `nome_completo = "Seu nome"`  
+Constantes -> Maiúsculo - Exemplo: `NUMERO_MAXIMO = 5`  
+  
 Obs: Para as variaveis, lembre-se de definir o tipo da variavel sempre que possivel, utilizando do `:`. Exemplo: `numero_qualquer: int = 5`
 
 Exemplo de bloco de código:
