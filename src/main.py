@@ -82,18 +82,21 @@ def limpar_graficos():
     graficos[0].cla()
     graficos[0].set_ylabel("Sinal Analógico", fontweight="bold")
     graficos[0].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+
     graficos[0].grid(True)
 
     # Sinal Sequência de Bits
     graficos[1].clear()
     graficos[1].set_ylabel("Sequência de Bits", fontweight="bold")
     graficos[1].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
+    graficos[1].set_xlim(0, config.NUMERO_DE_SIMBOLO)
     graficos[1].grid(True)
 
     # Sinal Digital referente a Sequência de Bits
     graficos[2].clear()
     graficos[2].set_ylabel("Sinal Digital", fontweight="bold")
     graficos[2].set_ylim(config.MINIMO_EIXO_DIGITAL_Y, config.MAXIMO_EIXO_DIGITAL_Y)
+    graficos[2].set_xlim(0, config.NUMERO_AMOSTRAS)
     graficos[2].grid(True)
 
     # Sinal Pulso Conformador
@@ -116,7 +119,7 @@ def gerar_grafico(i):
 
         """""" """
         Antes da Geração da sequência de bits e do sinal digital correspondente
-        devemos passar a taxa de Símbolos recebida pela interface
+        devemos passar a Amostras por Símbolos recebida pela interface
         como parâmetros para as funções
 
         Obs: O valor fornecido pela interface está armazenado na variável `taxa_simbolo`
@@ -172,7 +175,7 @@ def set_taxa_simbolo(event):
         taxa_simbolo_InfoLabel["text"] = taxa_de_simbolo_digitada
         numero_simbolo_InfoLabel["text"] = str(config.NUMERO_DE_SIMBOLO)
     else:
-        tk.messagebox.showerror("Erro", "Taxa de símbolos inválida")
+        tk.messagebox.showerror("Erro", "Amostras por Símbolos inválida")
 
     input_taxa_simbolo.delete(0, tk.END)
 
@@ -188,7 +191,7 @@ def set_numero_amostras(event):
         numero_amostras_infoframe["text"] = numero_amostras_digitada
         numero_simbolo_InfoLabel["text"] = str(config.NUMERO_DE_SIMBOLO)
     else:
-        tk.messagebox.showerror("Erro", "Número de amostras inválida")
+        tk.messagebox.showerror("Erro", "Taxa de Amostragem inválida")
 
     numero_amostras_entrada.delete(0, tk.END)
 
@@ -220,7 +223,7 @@ ani = animation.FuncAnimation(
 # Atribuindo padrões para a labelframe de número de amostras
 numero_amostras_frame = tk.LabelFrame(
     janela_principal,
-    text="Número de Amostras",
+    text="Taxa de Amostragem",
     width=180,
     height=75,
     borderwidth=0,
@@ -242,10 +245,10 @@ numero_amostras_entrada.place(relx=0.5, rely=0.55, anchor=tk.N)
 numero_amostras_entrada.bind("<Return>", set_numero_amostras)
 
 
-# Atribuindo padrões para a labelframe da taxa de símbolos
+# Atribuindo padrões para a labelframe da Amostras por Símbolos
 taxa_simbolo_Frame = tk.LabelFrame(
     janela_principal,
-    text="Taxa de Símbolos",
+    text="Amostras por Símbolos",
     width=180,
     height=75,
     borderwidth=0,
@@ -268,7 +271,7 @@ input_taxa_simbolo.bind("<Return>", set_taxa_simbolo)
 # Atribuindo padrões para a labelframe do Número de Simbolos
 numero_simbolo_Frame = tk.LabelFrame(
     janela_principal,
-    text="Número de Símbolos",
+    text="Taxa de Símbolos",
     width=180,
     height=75,
     borderwidth=0,
