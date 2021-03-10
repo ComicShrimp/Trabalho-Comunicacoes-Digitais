@@ -211,10 +211,6 @@ def set_mapeamento_zero(event):
     mapeamento_zero_entrada.delete(0, tk.END)
 
 
-def set_pulso_conformador(event):
-    print(combo_box_pulso_conformador.get())
-
-
 ani = animation.FuncAnimation(
     figura,
     gerar_grafico,
@@ -312,7 +308,6 @@ combo_box_pulso_conformador = ttk.Combobox(
     ],
 )
 combo_box_pulso_conformador.place(relx=0.5, rely=0.5, anchor=tk.N)
-combo_box_pulso_conformador.bind("<<ComboboxSelected>>", set_pulso_conformador)
 combo_box_pulso_conformador.current(0)
 
 # Atribuindo padrões para a labelframe de Mapeamento
