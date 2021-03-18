@@ -1,11 +1,12 @@
 import numpy as np
+import pandas as pd
 
 
-def sinal_analogico(numero_amostras: int):
+def sinal_analogico(numero_amostras: int) -> pd.DataFrame:
     """
     Cria o sinal analógico aleatório, com base no numero de amostras
     """
-    return np.random.randn(numero_amostras)
+    return pd.DataFrame(np.random.randn(numero_amostras),np.linspace(0,1,numero_amostras))
 
 
 def sinal_sequencia_de_bits(numero_amostras: int, taxa_de_simbolo: int):

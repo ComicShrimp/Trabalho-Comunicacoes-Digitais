@@ -101,7 +101,6 @@ def limpar_graficos():
 
     # Sinal Pulso Conformador
     graficos[3].clear()
-    graficos[3].set_xlabel("Tempo", fontweight="bold")
     graficos[3].set_ylabel("Pulso Conformador", fontweight="bold")
     graficos[3].set_ylim(config.MINIMO_EIXO_Y, config.MAXIMO_EIXO_Y)
     graficos[3].grid(True)
